@@ -1,0 +1,65 @@
+
+-want a 2d game which is fun on the phone (and playable on PC)
+
+-probably want an RPG with character progression
+
+-mini campigns of 3 or 5 levels, if your character dies during a mini campaign you get them back at the end, or you have to restart
+
+-option to play as a rogue like?
+
+-multiplayer
+
+-instead of using a dice, you use a card based system, you might have a 5 cards, each turn you can select to to return to the pile to draw 2 others - this allows you to try to build up good cards. It also allows you to use super high cards if you need to guarantee a hit or block to this helps remove from RNG and increases strategising.
+
+-can we do something like frozen synapse? you will have to select an active spell/card ready to cast if an enemy comes in range. Both players plan their moves with some sort of resolution phase.
+
+-might need the movement system from divinity (PC), this doesnt seem grid or hex based, but is based on action points and distance, it still seems the map is divided into finer grid, so a character might take up 4x4 cells.
+
+ 
+ 
+ 
+reference games
+-------------------
+divinity original sin 1 & 2 (pc)
+PRO: 
+-amazingly indepth and tactical
+-ground spells that combo (eg. water => wet + lightning)
+
+
+
+warbands: bushido (android & steam)
+PRO:
+-hex based, positioning is very important
+-cards for abilities with mana(action points)
+-amazing looking maps
+-does mini campaigns where death is permanent during the mini campaign of a few levels, after which you get your dead chars back
+
+CONS:
+-not an RPG - no progression
+
+
+fire emblem heroes (android)
+PRO:
+-sideways characters - only need a single anim, just mirrored
+-nice simple gfx
+
+CONS:
+
+
+heroe mages (android - http://d20studios.com/games/)
+PRO:
+-strategic
+
+CONS:
+-grid
+-top down
+-no character progression
+
+
+warhammer 40,000: space wolf (android)
+PRO:
+-strategic
+-positioning characters important
+
+CONS:
+-3D means cant run on all devices
