@@ -15,8 +15,34 @@
 
 -might need the movement system from divinity (PC), this doesnt seem grid or hex based, but is based on action points and distance, it still seems the map is divided into finer grid, so a character might take up 4x4 cells.
 
+-can choose turn based or time sliced/real time. The real time route auto pauses after 10 seconds, allows you to plan the next 10 seconds.
+
+-spell casting to be slow (eg, 15-30 seconds), to allow to retreat, counter attacks, interupts
+
+-reduce RNG - no crits, crits come from using cards, which might require say 3 attacks to power it up before it can be used (ala rage/focus).
+
+-could stats like strength drop during combat as you suffer fatigue/stamina lose? cards that allow you to rest and recover such things like a "strength heal".
+
+-should spell casting, bows and swords all just use a strength modifier to determine strength to allow for refactoring classes at any stage?
  
+possible cards/abilities:
+
+-crit (consume rage and/or reduce strength)
+-dodge (cunsume stamina to force enemy to miss)
+-rest (strength heal)
+-heal (health/constitution heal)
+-cleave (swing to target multiple targets?)
+
+abilities have a cast time, a cool down time, duration, duration damage, instant damage, radius, targetting method (target or ground)
+
+-some sort of combo system? for weapons and magic?
+
+-ground based things such as traps, summons, totems, spells (oil, fire, water, ooze)
+
+-can use barrels and other static items to engage in combat, use for cover, push, pull, combo with, etc... 
  
+-AA had a game that had good magic combo spell generation - select range, spread type, element type to create your own spells. (can we do something similar with weapons?)
+
  
 reference games
 -------------------
