@@ -84,22 +84,19 @@ if [ "$1" == "-update" ]; then
 fi
 
 # link project modules into the build
-ln -s $PROJ_DIR/Asset/godot/modules/bitshift $ENGINE_DIR/modules
-ln -s $PROJ_DIR/Asset/godot/modules/matrix $ENGINE_DIR/modules
-ln -s $PROJ_DIR/Asset/godot/modules/geotiff $ENGINE_DIR/modules
-
-# link thirdparty
-ln -s $PROJ_DIR/Asset/godot/thirdparty/libgeotiff $ENGINE_DIR/thirdparty
+ln -s $PROJ_DIR/Godot/modules/bitshift $ENGINE_DIR/modules
+ln -s $PROJ_DIR/Godot/modules/matrix $ENGINE_DIR/modules
+ln -s $PROJ_DIR/Godot/modules/gddragonbones $ENGINE_DIR/modules
 
 # copy other changes
-cp -r $PROJ_DIR/Asset/godot/drivers $ENGINE_DIR
-cp -r $PROJ_DIR/Asset/godot/scene $ENGINE_DIR
-cp -r $PROJ_DIR/Asset/godot/core $ENGINE_DIR
-cp -r $PROJ_DIR/Asset/godot/servers $ENGINE_DIR
+cp -r $PROJ_DIR/Godot/drivers $ENGINE_DIR
+cp -r $PROJ_DIR/Godot/scene $ENGINE_DIR
+cp -r $PROJ_DIR/Godot/core $ENGINE_DIR
+cp -r $PROJ_DIR/Godot/servers $ENGINE_DIR
 
 # apply patches
 cd $ENGINE_DIR
-git am < $PROJ_DIR/Asset/godot/patch/0001-16-bit-PNG-support.patch
+git am < $PROJ_DIR/Godot/patch/0001-16-bit-PNG-support.patch
 
 
 # Build!

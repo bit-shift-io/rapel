@@ -1,0 +1,136 @@
+#!/usr/bin/env python
+import sys
+import os
+
+Import('env')
+Import('env_modules')
+
+env_bitshift = env_modules.Clone()
+
+# Thirdparty source files
+# Not unbundled for now as they are not commonly available as shared library
+tinyexr_thirdparty_dir = "#thirdparty/tinyexr/"
+tinyexr_thirdparty_sources = [
+    "tinyexr.cc"
+]
+tinyexr_thirdparty_sources = [tinyexr_thirdparty_dir + file for file in tinyexr_thirdparty_sources]
+
+# Thirdparty source files
+nanosvg_thirdparty_dir = "#thirdparty/nanosvg/"
+nanosvg_thirdparty_sources = [
+		"nanosvg.cc"
+]
+nanosvg_thirdparty_sources = [nanosvg_thirdparty_dir + file for file in nanosvg_thirdparty_sources]
+
+thirdparty_sources = tinyexr_thirdparty_sources; # + nanosvg_thirdparty_sources
+
+#env_bitshift.add_source_files(env.modules_sources, thirdparty_sources)
+env_bitshift.Append(CPPPATH=[nanosvg_thirdparty_dir, tinyexr_thirdparty_dir])
+
+# Godot's own source files
+env_bitshift.add_source_files(env.modules_sources, "*.cpp")
+
+if env['tools']:
+    env_bitshift.add_source_files(env.modules_sources, "editor/*.cpp")
+
+demo = ARGUMENTS.get('demo', 'no');
+if demo == "yes":
+    env_bitshift.Append(CPPDEFINES=['DEMO_BUILD'])
+    print("Compiling with DEMO_BUILD enabled")
+else:
+    print("Compiling with DEMO_BUILD disabled")
+    
+#env.ParseConfig('pkg-config libtiff-4 --cflags --libs')
+#
+#error = os.system("pkg-config libtiff-4 --modversion > /dev/null ")
+#if (error):
+#    print("libtiff-4 not found. Download and install libtiff from http://www.simplesystems.org/libtiff/ by running:")
+#    print("     ./configure && make && sudo make install")
+#    sys.exit(1)
+#
+#
+# geotiff support
+#
+# Thirdparty source files
+# Not unbundled for now as they are not commonly available as shared library
+#thirdparty_dir_geotiff = "#thirdparty/libgeotiff/"
+#thirdparty_sources_geotiff = [
+#    "cpl_csv.c",
+#    "cpl_serv.c",
+#    "geo_extra.c",
+#    "geo_free.c",
+#    "geo_get.c",
+#    "geo_names.c",
+#    "geo_new.c",
+#    "geo_normalize.c",
+#    "geo_print.c",
+#    "geo_set.c",
+#    "geo_simpletags.c",
+#    "geo_strtod.c",
+#    "geo_tiffp.c",
+#    "geo_trans.c",
+#    "geo_write.c",
+#    "geotiff_proj4.c",
+#    "libxtiff/xtiff.c",
+#]
+
+#thirdparty_sources_geotiff = [thirdparty_dir_geotiff + file for file in thirdparty_sources_geotiff]
+#thirdparty_sources = thirdparty_sources_geotiff
+#env_bitshift.Append(CPPPATH=[thirdparty_dir_geotiff])
+#env_bitshift.add_source_files(env.modules_sources, thirdparty_sources)
+
+#
+# tiff support
+#
+#thirdparty_dir_tiff = "#thirdparty/tiff/libtiff/"
+#thirdparty_sources_tiff = [
+#    "mkg3states.c",
+#    "tif_aux.c",
+#    "tif_close.c",
+#    "tif_codec.c",
+#    "tif_color.c",
+#    "tif_compress.c",
+#    "tif_dir.c",
+#    "tif_dirinfo.c",
+#    "tif_dirread.c",
+#    "tif_dirwrite.c",
+#    "tif_dumpmode.c",
+#    "tif_error.c",
+#    "tif_extension.c",
+#    "tif_fax3.c",
+#    "tif_fax3sm.c",
+#    "tif_flush.c",
+#    "tif_getimage.c",
+#    "tif_jbig.c",
+#    "tif_jpeg.c",
+#    "tif_jpeg_12.c",
+#    "tif_luv.c",
+#    "tif_lzma.c",
+#    "tif_next.c",
+#    "tif_ojpeg.c",
+#    "tif_open.c",
+#    "tif_packbits.c",
+#    "tif_pixarlog.c",
+#    "tif_predict.c",
+#    "tif_print.c",
+#    "tif_read.c",
+#    "tif_strip.c",
+#    "tif_swab.c",
+#    "tif_thunder.c",
+#    "tif_tile.c",
+#    "tif_unix.c",
+#    "tif_version.c",
+#    "tif_warning.c",
+#    "tif_win32.c",
+#    "tif_write.c",
+#    "tif_zip.c"
+#]
+
+#thirdparty_sources_t = [thirdparty_dir_tiff + file for file in thirdparty_sources_tiff]
+#env_bitshift.add_source_files(env.modules_sources, thirdparty_sources_t)
+
+#env_bitshift.add_source_files(env.modules_sources, "#thirdparty/tiff/libtiff/*.c")
+#env_bitshift.Append(CPPPATH=[thirdparty_dir_tiff])
+
+
+
