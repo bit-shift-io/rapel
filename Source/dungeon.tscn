@@ -1,10 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://troll.tscn" type="PackedScene" id=2]
-[ext_resource path="res://stip_tex.png" type="Texture" id=3]
-[ext_resource path="res://stip_ske.json" type="GDDragonBonesResource" id=4]
-[ext_resource path="res://Actor.gd" type="Script" id=5]
 
 [node name="dungeon" type="Node2D"]
 
@@ -52,21 +49,4 @@ _sections_unfolded = [ "Cell" ]
 position = Vector2( 368.142, 347.007 )
 motion/sync_to_physics = false
 _sections_unfolded = [ "Material", "Pause", "Visibility", "collision", "motion" ]
-
-[node name="GDDragonBones" type="GDDragonBones" parent="."]
-position = Vector2( 31.0914, 449.631 )
-texture = ExtResource( 3 )
-debug = false
-flipX = false
-flipY = false
-resource = ExtResource( 4 )
-playback/process_mode = 1
-playback/speed = 1.0
-playback/progress = 0.0
-playback/play = false
-"childs use this material" = true
-playback/curr_animation = "[none]"
-playback/loop = -1
-script = ExtResource( 5 )
-_sections_unfolded = [ "Pause", "Script", "resource" ]
 
