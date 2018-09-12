@@ -8,6 +8,12 @@ var movement_tolerance = 2.0 # how close do we need to be to mouse pos before we
 
 onready var character = $"Character"
 
+onready var map_floor = $"../Navigation2D/floor";
+onready var navigation = $"../Navigation2D";
+
+var path = []
+
+
 func _ready():
 	set_process_input(true)
 	set_physics_process(true)
@@ -49,4 +55,12 @@ func _input(event):
 		character.flipX = (direction.x < 0);
 		character.set("playback/curr_animation", "Run");
 		character.play_from_time(0.0);
+		
+		path = navigation.get_simple_path(get_global_position(), move_to_pos);
+		print(path)
+		
+func _draw():
+	if not(path==null):
+		for i in path:
+			draw_circle(i-get_global_position(),3,Color(255,0,0))
 		
