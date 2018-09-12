@@ -15,6 +15,10 @@ var path = []
 
 
 func _ready():
+	get_tree().set_debug_navigation_hint(true);
+	
+	map_floor.update_dirty_quadrants();
+	
 	set_process_input(true)
 	set_physics_process(true)
 	
