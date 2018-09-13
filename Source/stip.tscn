@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://troll.gd" type="Script" id=1]
+[ext_resource path="res://Actor.gd" type="Script" id=1]
 [ext_resource path="res://stip_tex.png" type="Texture" id=2]
 [ext_resource path="res://stip_ske.json" type="GDDragonBonesResource" id=3]
 
@@ -9,13 +9,14 @@
 custom_solver_bias = 0.0
 radius = 16.0
 
-[node name="troll" type="KinematicBody2D"]
+[node name="Actor" type="KinematicBody2D"]
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 motion/sync_to_physics = false
 script = ExtResource( 1 )
+_sections_unfolded = [ "Script" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.342697, -0.980721 )

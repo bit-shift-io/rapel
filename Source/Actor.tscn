@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Actor.gd" type="Script" id=1]
+[ext_resource path="res://stip_tex.png" type="Texture" id=2]
+[ext_resource path="res://stip_ske.json" type="GDDragonBonesResource" id=3]
+[ext_resource path="res://Path2D.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 16.0
+
+[sub_resource type="Curve2D" id=2]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array(  )
+}
+
+[node name="Actor" type="KinematicBody2D"]
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+motion/sync_to_physics = false
+script = ExtResource( 1 )
+_sections_unfolded = [ "Script" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.342697, -0.980721 )
+shape = SubResource( 1 )
+
+[node name="Character" type="GDDragonBones" parent="."]
+position = Vector2( 0.637451, -18.9194 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+debug = false
+flipX = false
+flipY = false
+resource = ExtResource( 3 )
+playback/process_mode = 1
+playback/speed = 1.0
+playback/progress = 0.0
+playback/play = false
+"childs use this material" = true
+playback/curr_animation = "[none]"
+playback/loop = -1
+_sections_unfolded = [ "Pause", "Script", "Transform", "resource" ]
+
+[node name="Path2D" type="Path2D" parent="."]
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+curve = SubResource( 2 )
+script = ExtResource( 4 )
+_sections_unfolded = [ "Script" ]
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+
