@@ -3,6 +3,10 @@ extends Node2D
 onready var actor = $"Actor";
 
 func _ready():
+	add_to_group("controllers");
+	
+	actor.show_path(true); # only for players
+	
 	set_process_input(true)
 	
 func _input(event):
@@ -17,4 +21,4 @@ func _input(event):
 			path_points = [actor_pos, move_to_pos];
 			
 		print(path_points)
-		actor.set_path_points(path_points);
+		actor.set_path_points(path_points, false);
