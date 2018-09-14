@@ -35,6 +35,9 @@ func return_to_patrol_route():
 	state = State.OnPatrolRoute;
 	
 func _process(delta):
+	if (GameState.get_phase() == GameState.Phase.Plan):
+		return;
+		
 	# pick closest target
 	update_target();
 	if (!target):

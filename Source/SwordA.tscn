@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Weapon.gd" type="Script" id=1]
+[ext_resource path="res://sword_a.png" type="Texture" id=2]
+
+[node name="SwordA" type="Node2D"]
+script = ExtResource( 1 )
+_sections_unfolded = [ "Script" ]
+damage = null
+attack_recover_time = null
+attack_time = null
+range_far = null
+range_near = null
+weight = null
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+

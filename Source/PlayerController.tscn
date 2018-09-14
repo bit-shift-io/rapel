@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://PlayerController.gd" type="Script" id=1]
+[ext_resource path="res://play.png" type="Texture" id=2]
 
 [node name="PlayerController" type="Node2D"]
 script = ExtResource( 1 )
@@ -29,4 +30,26 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
+_sections_unfolded = [ "Transform" ]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="PlayPauseButton" type="TouchScreenButton" parent="CanvasLayer"]
+position = Vector2( 971.489, 549.958 )
+scale = Vector2( 0.333448, 0.324791 )
+normal = ExtResource( 2 )
+pressed = null
+bitmask = null
+shape = null
+shape_centered = true
+shape_visible = true
+passby_press = false
+action = ""
+visibility_mode = 0
+
+[connection signal="pressed" from="CanvasLayer/PlayPauseButton" to="." method="_on_PlayPauseButton_pressed"]
