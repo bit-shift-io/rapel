@@ -9,6 +9,7 @@ echo ""
 echo "Add -linux to build (default)"
 echo "Add -windows to do a windows build"
 echo "Add -mac to do a mac build"
+echo "Add -android to do a android build"
 echo ""
 echo "Add -release as a second arg to build all platform release executables"
 echo "------------------------------------------------------"
@@ -115,6 +116,18 @@ if [ "$1" == "-mac" ]; then
     cd $ENGINE_DIR
     CPU_THREADS=4
     scons -j $CPU_THREADS platform=osx bits=64 builtin_openssl=yes osxcross_sdk=darwin15
+fi
+
+if [ "$1" == "-android" ]; then    
+    export ANDROID_HOME=$HOME/Android/Sdk
+    export ANDROID_NDK_ROOT=$HOME/Android/Sdk/ndk-bundle
+    
+    cd $ENGINE_DIR
+    CPU_THREADS=4
+    scons -j $CPU_THREADS platform=android bits=64 builtin_openssl=yes
+    cd platform/android/java
+    pwd
+    ./gradlew
 fi
 
 # build export templates - i.e. all binaries for all platforms

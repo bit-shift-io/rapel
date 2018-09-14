@@ -8,6 +8,7 @@ echo ""
 echo "-mac build for mac only"
 echo "-linux build for linux only"
 echo "-windows build for windows only"
+echo "-android build for android only"
 echo ""
 echo "-data only assemble the data (dont build exes)"
 echo "------------------------------------------------------"
@@ -19,6 +20,7 @@ BIN_DIR=$BUILD_DIR/bin
 PLATFORM_MAC=0
 PLATFORM_LINUX=0
 PLATFORM_WINDOWS=0
+PLATFORM_ANDROID=0
 
 BUILD_EXECUTABLES=1
 
@@ -36,6 +38,9 @@ while [ "$1" != "" ]; do
         ;;
     -windows)
       PLATFORM_WINDOWS=1
+        ;;
+    -android)
+      PLATFORM_ANDROID=1
         ;;
     -h|-\?|--help)
       echo "Usage: $(basename $0) -linux -data"
@@ -55,16 +60,18 @@ while [ "$1" != "" ]; do
 done
 
 # no platform set means all platforms are enabled
-if [[ $PLATFORM_MAC == 0 ]] && [[ $PLATFORM_LINUX == 0 ]] && [[ $PLATFORM_WINDOWS == 0 ]]; then
+if [[ $PLATFORM_MAC == 0 ]] && [[ $PLATFORM_LINUX == 0 ]] && [[ $PLATFORM_WINDOWS == 0 ]] && [[ $PLATFORM_ANDROID == 0 ]]; then
     PLATFORM_MAC=1
     PLATFORM_LINUX=1
     PLATFORM_WINDOWS=1
+    PLATFORM_ANDROID=1
 fi
 
 echo ""
 echo "PLATFORM_MAC: $PLATFORM_MAC"
 echo "PLATFORM_LINUX: $PLATFORM_LINUX"
 echo "PLATFORM_WINDOWS: $PLATFORM_WINDOWS"
+echo "PLATFORM_ANDROID: $PLATFORM_ANDROID"
 echo ""
 echo "BUILD_EXECUTABLES: $BUILD_EXECUTABLES"
 echo ""
@@ -87,7 +94,7 @@ copy_data() {
     if [[ $BUILD_EXECUTABLES == 1 ]]; then
         rm -r $DEST_DIR
     else
-        find $DEST_DIR -not -name 'TrainsAndThings' -not -name 'TrainsAndThings.exe' -not -name 'TrainsAndThingsEditor' -not -name 'TrainsAndThingsEditor.exe' -delete
+        find $DEST_DIR -not -name 'Rapel' -not -name 'Rapel.exe' -not -name 'RapelEditor' -not -name 'RapelEditor.exe' -delete
     fi
     
     mkdir $DEST_DIR
@@ -102,8 +109,8 @@ copy_data() {
             ./godot_build.sh
         fi
         
-        $PROJ_DIR/Build/godot/bin/godot.x11.tools.64 --path $CP_DEST_DIR --export "$PLATFORM" $DEST_DIR/TrainsAndThings.pck
-        #$PROJ_DIR/Build/godot/bin/godot.x11.tools.64 --path $CP_DEST_DIR --export $PLATFORM $DEST_DIR/TrainsAndThings.zip
+        $PROJ_DIR/Build/godot/bin/godot.x11.tools.64 --path $CP_DEST_DIR --export "$PLATFORM" $DEST_DIR/Rapel.pck
+        #$PROJ_DIR/Build/godot/bin/godot.x11.tools.64 --path $CP_DEST_DIR --export $PLATFORM $DEST_DIR/Rapel.zip
         rm -r $CP_DEST_DIR
     else
         rm $DEST_DIR/export_presets.cfg
