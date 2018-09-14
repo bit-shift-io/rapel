@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Actor.gd" type="Script" id=1]
-[ext_resource path="res://stip_tex.png" type="Texture" id=2]
-[ext_resource path="res://stip_ske.json" type="GDDragonBonesResource" id=3]
+[ext_resource path="res://Stip_tex.png" type="Texture" id=2]
+[ext_resource path="res://Stip_ske.json" type="GDDragonBonesResource" id=3]
 [ext_resource path="res://CommandList.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -51,7 +51,7 @@ playback/play = false
 "childs use this material" = true
 playback/curr_animation = "[none]"
 playback/loop = -1
-_sections_unfolded = [ "Pause", "Script", "Transform", "resource" ]
+_sections_unfolded = [ "Pause", "Script", "Transform", "playback", "resource" ]
 
 [node name="Path2D" type="Path2D" parent="."]
 visible = false

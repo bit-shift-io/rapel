@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stip_tex.png-a31414d6daaf02c860610341fe9a81de.stex"
+path="res://.import/Stip_tex.png-c1a2c2189f3eefc5b5193bb7afc91a58.stex"
 
 [deps]
 
-source_file="res://stip_tex.png"
-dest_files=[ "res://.import/stip_tex.png-a31414d6daaf02c860610341fe9a81de.stex" ]
+source_file="res://Stip_tex.png"
+dest_files=[ "res://.import/Stip_tex.png-c1a2c2189f3eefc5b5193bb7afc91a58.stex" ]
 
 [params]
 

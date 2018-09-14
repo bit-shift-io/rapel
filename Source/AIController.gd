@@ -25,6 +25,9 @@ func _ready():
 		#patrol_path.get_parent().remove_child(patrol_path);
 		#get_tree().get_root().call_deferred("add_child", patrol_path);
 		patrol_path.update();
+		
+	actor.connect("command_list_completed", self, "_command_list_completed");
+	#actor.connect("state_changed", self, "_actor_state_changed");
 	
 func return_to_patrol_route():
 	if (state == State.OnPatrolRoute):
@@ -36,6 +39,9 @@ func return_to_patrol_route():
 	
 func _process(delta):
 	if (GameState.get_phase() == GameState.Phase.Plan):
+		return;
+		
+	if (!actor.is_alive()):
 		return;
 		
 	# pick closest target

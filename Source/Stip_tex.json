@@ -1,0 +1,148 @@
+{
+	"width": 1024,
+	"height": 1024,
+	"imagePath": "Stip_tex.png",
+	"name": "Stip",
+	"SubTexture": [
+		{
+			"name": "Forearm_R.png",
+			"x": 3,
+			"y": 258,
+			"width": 149,
+			"height": 294
+		},
+		{
+			"name": "Ear_R.png.001",
+			"x": 376,
+			"y": 152,
+			"width": 137,
+			"height": 183
+		},
+		{
+			"name": "Hand_R.png",
+			"x": 713,
+			"y": 284,
+			"width": 164,
+			"height": 168
+		},
+		{
+			"name": "Foot_R.png.001",
+			"x": 713,
+			"y": 460,
+			"width": 225,
+			"height": 124
+		},
+		{
+			"name": "Arm_R.png",
+			"x": 368,
+			"y": 342,
+			"width": 146,
+			"height": 210
+		},
+		{
+			"name": "Shin_R.png",
+			"x": 47,
+			"y": 71,
+			"width": 105,
+			"height": 179
+		},
+		{
+			"name": "Head.png.001",
+			"x": 3,
+			"y": 559,
+			"width": 510,
+			"height": 460
+		},
+		{
+			"name": "Leg_R.png",
+			"x": 897,
+			"y": 724,
+			"width": 95,
+			"height": 163
+		},
+		{
+			"name": "Ear_L.png.001",
+			"x": 787,
+			"y": 894,
+			"width": 168,
+			"height": 126
+		},
+		{
+			"name": "UpperBody.png",
+			"x": 521,
+			"y": 591,
+			"width": 258,
+			"height": 428
+		},
+		{
+			"name": "Hip.png",
+			"x": 160,
+			"y": 170,
+			"width": 196,
+			"height": 174
+		},
+		{
+			"name": "Tail_03.png",
+			"x": 787,
+			"y": 591,
+			"width": 120,
+			"height": 75
+		},
+		{
+			"name": "Tail_02.png",
+			"x": 938,
+			"y": 113,
+			"width": 82,
+			"height": 156
+		},
+		{
+			"name": "Tail_01.png",
+			"x": 160,
+			"y": 52,
+			"width": 119,
+			"height": 110
+		},
+		{
+			"name": "Foot_L.png",
+			"x": 521,
+			"y": 138,
+			"width": 240,
+			"height": 131
+		},
+		{
+			"name": "Shin_L.png",
+			"x": 160,
+			"y": 352,
+			"width": 176,
+			"height": 199
+		},
+		{
+			"name": "Leg_L.png",
+			"x": 885,
+			"y": 283,
+			"width": 99,
+			"height": 169
+		},
+		{
+			"name": "Hand_L.png",
+			"x": 769,
+			"y": 115,
+			"width": 161,
+			"height": 154
+		},
+		{
+			"name": "Arm_L.png",
+			"x": 787,
+			"y": 683,
+			"width": 102,
+			"height": 203
+		},
+		{
+			"name": "Forearm_L.png",
+			"x": 521,
+			"y": 277,
+			"width": 184,
+			"height": 307
+		}
+	]
+}

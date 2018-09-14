@@ -27,6 +27,8 @@ enum State {
 	Idle,
 	Walk,
 	Attack,
+	Flinch,
+	Dying,
 	Dead,
 }
 
@@ -61,20 +63,39 @@ func _ready():
 	command_list.get_parent().remove_child(command_list);
 	get_tree().get_root().call_deferred("add_child", command_list);
 	
+	# reparent weapon to L_Hand
+	# https://github.com/sanja-sa/gddragonbones/issues/23
+	#var l_hand = BUtil.find_child(character, "L_Hand");
+	#weapon.get_parent().remove_child(weapon);
+	#l_hand.call_deferred("add_child", weapon);
+	
+	
 func _change_phase(p_phase):
 	if (p_phase == GameState.Phase.Plan):
-		character.stop_all();
+		#character.stop_all();
+		character.set("playback/speed", 0.0);
 	else:
-		character.play(true);
-		
+		#character.play(true);
+		character.set("playback/speed", 1.0); # TODO: restore speed of when pasued
+			
 		# start following the commandlist
-		execute_command(command_list.get_first_command());
+		if (command_list.get_first_command()):
+			execute_command(command_list.get_first_command());
 		
 func execute_command(c):
 	if (c == null):
-		set_state(State.Idle)
+		# go to idle
+		#if (is_alive() && state != State.Flinch):
+		#	set_state(State.Idle)
+		
 		# TODO: notify controller, which will then pause the game if player controller
 		emit_signal("command_list_completed");
+		return;
+		
+	# if we are in a state that can't be interupted, call
+	# execute_command again later
+	if (state == State.Flinch):
+		call_deferred("execute_command", c);
 		return;
 		
 	if (c.command == CommandList.CommandType.Walk):
@@ -113,9 +134,37 @@ func _physics_process(delta):
 		_process_state_walk(delta)
 	elif (state == State.Attack):
 		_process_state_attack(delta)
+	elif (state == State.Dying):
+		_process_state_dying(delta)
+	elif (state == State.Dead):
+		pass
+	elif (state == State.Flinch):
+		_process_state_flinch(delta)
 		
 	return;
+
+func _process_state_flinch(delta):
+	# reached end of anim
+	print("tell:" + str(character.tell()));
+	print("get_progress:" + str(character.get_progress()));
+	
+	if (character.tell() >= 1.0):
+		set_state(State.Idle);
+		return;
 		
+	return;
+	
+func _process_state_dying(delta):
+	# reached end of anim
+	print("tell:" + str(character.tell()));
+	print("get_progress:" + str(character.get_progress()));
+	
+	if (character.tell() >= 1.0):
+		set_state(State.Dead);
+		return;
+		
+	return;
+	
 func _process_state_attack(delta):
 	# reached end of anim
 	print("tell:" + str(character.tell()));
@@ -135,6 +184,7 @@ func _process_state_attack(delta):
 			var a = BUtil.find_parent_by_class_name(col.collider, "Actor");
 			if (a != self):
 				a.damage(weapon);
+				break; # how to handle hitting multiple enemies? a list of actors to hit? for now just hit the first
 		
 		execute_next_command();
 		return;
@@ -197,6 +247,15 @@ func set_path_points(p_path_points, p_loop):
 	path_follow.set_offset(0)
 	set_state(State.Walk)
 	
+func can_change_to_state(p_state):
+	if (is_alive()):
+		return true;
+	else:
+		if (p_state == State.Dying || p_state == State.Dead):
+			return true;
+			
+	return false;
+	
 func set_state(p_state):
 	state = p_state;
 	
@@ -210,12 +269,19 @@ func set_state(p_state):
 		character.play_from_time(0.0);
 	elif (state == State.Attack):
 		character.set("playback/loop", 1);
-		character.set("playback/curr_animation", "Run"); # TODO: attack anim!
+		character.set("playback/curr_animation", "Attack_Sword");
 		character.play_from_time(0.0);
+	elif (state == State.Dying):
+		character.set("playback/loop", 1);
+		character.set("playback/curr_animation", "Dying");
+		character.play_from_time(0.0);
+		command_list.clear(); # no more commands for you dear sir
 	elif (state == State.Dead):
-		queue_free();
-		get_controller().queue_free(); # free parent also!
-		
+		character.stop_all(); # leave on last keyframe of dying
+	elif (state == State.Flinch):
+		character.set("playback/loop", 1);
+		character.set("playback/curr_animation", "Flinch");
+		character.play_from_time(0.0);
 		
 	emit_signal("state_changed", state);
 	
@@ -232,13 +298,19 @@ func get_weapon():
 func get_command_list():
 	return command_list;
 	
-func damage(p_weapon):
-	health -= p_weapon.damage;
+func is_alive():
+	return health > 0;
 	
-	# TODO: nice dying/death anims and leave the corpse on the ground 
-	# for now just disapeer
+func damage(p_weapon):
+	if (!is_alive()):
+		return;
+		
+	health -= p_weapon.damage;
+
 	if (health <= 0):
-		set_state(State.Dead);
+		set_state(State.Dying);
+	else:
+		set_state(State.Flinch);
 		
 	return;
 	
