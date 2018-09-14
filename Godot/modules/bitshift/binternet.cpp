@@ -165,6 +165,8 @@ String BInternet::get_continent()
         return "Oceania";
     if (continent_code == "SA")
         return "South America";
+
+    return "";
 }
 
 void BInternet::_bind_methods() {

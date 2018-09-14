@@ -8,8 +8,6 @@ onready var play_pause_button = $"CanvasLayer/PlayPauseButton";
 var stop_tex = load("res://stop.png");
 var play_tex = load("res://play.png");
 
-var ignore_next_mouse_button_event = false;
-
 func _ready():
 	add_to_group("controllers");
 	
@@ -35,16 +33,15 @@ func _command_list_completed():
 	
 func _change_phase(p_phase):
 	if (p_phase == GameState.Phase.Plan):
-		play_pause_button.set_texture(stop_tex);
+		play_pause_button.set_normal_texture(stop_tex);
 	else:
-		play_pause_button.set_texture(play_tex);
+		play_pause_button.set_normal_texture(play_tex);
 		
-func _input(event):
+func _process(delta):
+	return;
+		
+func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed:
-		if (ignore_next_mouse_button_event):
-			ignore_next_mouse_button_event = false;
-			return;
-			
 		# first check if we are attacking an enemy
 		var col_list = mouse_pick();
 		for i in range(col_list.size()):
@@ -110,9 +107,7 @@ func is_enemy(p_other_actor):
 	
 	return false;
 
-func _on_PlayPauseButton_pressed():
-	ignore_next_mouse_button_event = true;
-	
+func _on_PlayPauseButton_pressed():	
 	if (GameState.get_phase() == GameState.Phase.Execute):
 		GameState.set_phase(GameState.Phase.Plan);
 	else:

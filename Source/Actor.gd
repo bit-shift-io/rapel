@@ -26,7 +26,8 @@ var health = 20;
 enum State {
 	Idle,
 	Walk,
-	Attack
+	Attack,
+	Dead,
 }
 
 var state;
@@ -78,7 +79,7 @@ func execute_command(c):
 		
 	if (c.command == CommandList.CommandType.Walk):
 		path.set_curve(c.curve)
-		path.update(); # redraw
+		#path.update(); # redraw
 		
 		path_follow.set_loop(c.loop);
 		path_follow.set_offset(0)
@@ -98,6 +99,7 @@ func _draw():
 	if (!debug):
 		return;
 		
+	return;
 	draw_circle(move_target, 5, Color(255, 0, 0, 1));
 	draw_line(move_target, get_global_position(), Color(255, 0, 0, 1));
 	
@@ -177,7 +179,7 @@ func _process_state_walk(delta):
 	if (debug):
 		print("result:" + str(result));
 
-	update();
+	#update();
 		
 func clear_path():
 	path.set_curve(Curve2D.new())
@@ -189,7 +191,7 @@ func set_path_points(p_path_points, p_loop):
 		curve.add_point(p)
 	
 	path.set_curve(curve)
-	path.update(); # redraw
+	#path.update(); # redraw
 	
 	path_follow.set_loop(p_loop);
 	path_follow.set_offset(0)
@@ -210,8 +212,15 @@ func set_state(p_state):
 		character.set("playback/loop", 1);
 		character.set("playback/curr_animation", "Run"); # TODO: attack anim!
 		character.play_from_time(0.0);
+	elif (state == State.Dead):
+		queue_free();
+		get_controller().queue_free(); # free parent also!
+		
 		
 	emit_signal("state_changed", state);
+	
+func get_controller():
+	return get_parent();
 	
 func show_path(p_show):
 	#path.draw = p_show;
@@ -229,7 +238,8 @@ func damage(p_weapon):
 	# TODO: nice dying/death anims and leave the corpse on the ground 
 	# for now just disapeer
 	if (health <= 0):
-		set_visible(false);
+		set_state(State.Dead);
+		
 	return;
 	
 		

@@ -21,6 +21,8 @@ ENGINE_DIR=$BUILD_DIR/godot
 OSXCROSS_DIR=$BUILD_DIR/osxcross
 CPU_THREADS=$(getconf _NPROCESSORS_ONLN) # works on linux + mac
 
+export ANDROID_HOME=$HOME/Android/Sdk
+export ANDROID_NDK_ROOT=$HOME/Android/Sdk/ndk-bundle
 export OSXCROSS_ROOT=$OSXCROSS_DIR
 
 echo $PROJ_DIR
@@ -33,6 +35,10 @@ if [ ! -d $ENGINE_DIR ]; then
     sudo pacman -S --noconfirm gdb 
     sudo pacman -S --noconfirm scons 
     sudo pacman -S --noconfirm mingw-w64-gcc
+    
+    # one for android
+    sudo yay -S --noconfirm ncurses5-compat-libs
+    
     git clone https://github.com/godotengine/godot.git $ENGINE_DIR  
     
     #sudo pacaur -S libtiff - this doesnt' work
@@ -119,15 +125,12 @@ if [ "$1" == "-mac" ]; then
 fi
 
 if [ "$1" == "-android" ]; then    
-    export ANDROID_HOME=$HOME/Android/Sdk
-    export ANDROID_NDK_ROOT=$HOME/Android/Sdk/ndk-bundle
-    
     cd $ENGINE_DIR
     CPU_THREADS=4
-    scons -j $CPU_THREADS platform=android bits=64 builtin_openssl=yes
+    scons -j $CPU_THREADS platform=android target=release_debug builtin_openssl=yes
     cd platform/android/java
     pwd
-    ./gradlew
+    ./gradlew build
 fi
 
 # build export templates - i.e. all binaries for all platforms
@@ -178,6 +181,15 @@ if [ "$2" == "-release" ]; then
         scons -j $CPU_THREADS platform=osx tools=yes target=release_debug debug_release=yes bits=64 builtin_openssl=yes demo=no osxcross_sdk=darwin15
         cp $ENGINE_DIR/bin/godot.osx.opt.tools.64 $BUILD_DIR/MacFull/TrainsAndThingsEditor
         x86_64-w64-mingw32-strip $BUILD_DIR/MacFull/TrainsAndThingsEditor
+    fi
+    
+    if [ "$1" == "-android" ]; then    
+        cd $ENGINE_DIR
+        CPU_THREADS=4
+        scons -j $CPU_THREADS platform=android target=release builtin_openssl=yes
+        cd platform/android/java
+        pwd
+        ./gradlew build
     fi
 fi
 
