@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://PlayerController.gd" type="Script" id=1]
-[ext_resource path="res://stop.png" type="Texture" id=2]
+[ext_resource path="res://StrategyCamera2D.gd" type="Script" id=2]
+[ext_resource path="res://stop.png" type="Texture" id=3]
 
 [node name="PlayerController" type="Node2D"]
 script = ExtResource( 1 )
@@ -30,7 +31,8 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-_sections_unfolded = [ "Transform" ]
+script = ExtResource( 2 )
+_sections_unfolded = [ "Script", "Transform" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 1
@@ -59,7 +61,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 3 )
 _sections_unfolded = [ "Textures" ]
 
 [connection signal="pressed" from="CanvasLayer/PlayPauseButton" to="." method="_on_PlayPauseButton_pressed"]
