@@ -63,7 +63,7 @@ position = Vector2( 72.4326, 166.62 )
 _sections_unfolded = [ "Script", "Transform" ]
 
 [node name="Actor" parent="PlayerController" instance=ExtResource( 3 )]
-_sections_unfolded = [ "Collision", "Script", "Transform" ]
+_sections_unfolded = [ "Collision", "Script", "Transform", "collision" ]
 
 [node name="SwordA" parent="PlayerController/Actor" instance=ExtResource( 4 )]
 position = Vector2( 24.896, -24.5886 )
@@ -80,7 +80,7 @@ _sections_unfolded = [ "Script", "Transform" ]
 
 [node name="Actor" parent="AIController" instance=ExtResource( 3 )]
 position = Vector2( 433.199, 295.449 )
-_sections_unfolded = [ "Collision", "Script", "Transform" ]
+_sections_unfolded = [ "Collision", "Script", "Transform", "collision" ]
 
 [node name="SwordA" parent="AIController/Actor" instance=ExtResource( 4 )]
 position = Vector2( 27.428, -23.7473 )

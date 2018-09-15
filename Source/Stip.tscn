@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Actor.gd" type="Script" id=1]
 [ext_resource path="res://Stip_tex.png" type="Texture" id=2]
 [ext_resource path="res://Stip_ske.json" type="GDDragonBonesResource" id=3]
+[ext_resource path="res://Stip.glb" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -17,6 +18,7 @@ collision/safe_margin = 0.08
 motion/sync_to_physics = false
 script = ExtResource( 1 )
 _sections_unfolded = [ "Script" ]
+debug = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.342697, -0.980721 )
@@ -62,4 +64,6 @@ playback/play = false
 playback/curr_animation = "[none]"
 playback/loop = -1
 _sections_unfolded = [ "Pause", "Script", "Transform", "resource" ]
+
+[node name="Scene Root2" parent="." instance=ExtResource( 4 )]
 

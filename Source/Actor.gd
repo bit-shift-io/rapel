@@ -13,6 +13,8 @@ var speed = 2 # pixel/second
 var movement_tolerance = 2.0 # how close do we need to be to mouse pos before we stop moving
 
 onready var character = $"Character"
+onready var character2 = $"Viewport/Char3D"
+onready var character_sprite = $"Viewport_Sprite"
 
 onready var map_floor = $"../../Navigation2D/floor";
 onready var navigation = $"../../Navigation2D";
@@ -110,6 +112,7 @@ func execute_command(c):
 		set_state(State.Walk)
 	elif (c.command == CommandList.CommandType.Attack):
 		character.flipX = (c.direction.x < 0);
+		character_sprite.set_flip_h(c.direction.x < 0);
 		set_state(State.Attack)
 		return;
 		
@@ -225,6 +228,7 @@ func _process_state_walk(delta):
 	
 	# make character face the direction we are moving
 	character.flipX = (delta_pos.x < 0);
+	character_sprite.set_flip_h(delta_pos.x < 0);
 	
 	#delta_pos = Vector2(1, 0) * 10;
 	
@@ -267,30 +271,22 @@ func set_state(p_state):
 	state = p_state;
 	
 	if (state == State.Idle):
-		character.set("playback/loop", -1);
-		character.set("playback/curr_animation", "Idle");
+		play_anim("Idle", true);
 		character.play_from_time(0.0);
 	elif (state == State.Walk):
-		character.set("playback/loop", -1);
-		character.set("playback/curr_animation", "Run");
+		play_anim("Run", true);
 		character.play_from_time(0.0);
 	elif (state == State.Attack):
-		character.set("playback/loop", 1);
-		character.set("playback/curr_animation", "Attack_Sword");
-		character.play_from_time(0.0);
+		play_anim("Attack_Sword", false);
 	elif (state == State.Dying):
-		character.set("playback/loop", 1);
-		character.set("playback/curr_animation", "Dying");
-		character.play_from_time(0.0);
+		play_anim("Dying", false);
 		command_list.clear(); # no more commands for you dear sir
 	elif (state == State.Dead):
 		character.stop_all(); # leave on last keyframe of dying
 		set_collision_layer(0); # disable physics - probably better to not have the physics shape as the root, but follow the physics shape?
 		set_collision_mask(0);
 	elif (state == State.Flinch):
-		character.set("playback/loop", 1);
-		character.set("playback/curr_animation", "Flinch");
-		character.play_from_time(0.0);
+		play_anim("Flinch", false);
 		
 	emit_signal("state_changed", state);
 	
@@ -334,5 +330,14 @@ func set_targetted(p_actor, p_targetting):
 	
 func is_targetted():
 	return (target_of.size() > 0);
+	
+func play_anim(p_name, p_loop):
+	character.set("playback/loop", -1 if p_loop else 1);
+	character.set("playback/curr_animation", p_name);
+	character.play_from_time(0.0);
+		
+	var anim_name = p_name + "_Armature";
+	character2.get_node("AnimationPlayer").get_animation(anim_name).set_loop(p_loop);
+	character2.get_node("AnimationPlayer").play(anim_name);
 	
 		
