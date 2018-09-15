@@ -25,3 +25,12 @@ Third party tools:
 https://github.com/ndee85/coa_tools
 https://github.com/sanja-sa/gddragonbones
 
+Blender GLTF plugin
+--------------------
+Obtained from https://github.com/KhronosGroup/glTF-Blender-Exporter
+Download the repo as a zip, then extract and grab out the "glTF-Blender-Exporter/scripts/addons/io_scene_gltf2/"
+directory and make it into a zip. This can then be loaded into blender.
+
+In blender you will need to check "Enable experimental glTF export settings" possibly to get this working.
+
+
