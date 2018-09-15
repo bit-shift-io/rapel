@@ -63,9 +63,11 @@ func _draw():
 			
 func draw_curve(p_curve):
 	for i in range(p_curve.get_point_count()):
-		draw_circle(p_curve.get_point_position(i), 5, Color(0, 0, 255, 1));
 		if (i > 0):
-			draw_line(p_curve.get_point_position(i - 1), p_curve.get_point_position(i), Color(0, 0, 255, 1));
+			draw_line(p_curve.get_point_position(i - 1), p_curve.get_point_position(i), Color(255, 255, 255, 50), 2.0);
+			
+		draw_circle(p_curve.get_point_position(i), 5, Color(255, 255, 255, 50));
+		
 			
 func draw_attack(p_position, p_direction):
 	draw_line(p_position, p_position + p_direction, Color(255, 0, 0, 1));

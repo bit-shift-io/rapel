@@ -1,5 +1,7 @@
 extends Node2D
 
+const Actor = preload("Actor.gd");
+
 export(int) var target_radius = 100;
 
 onready var actor = $"Actor";
@@ -27,7 +29,12 @@ func _ready():
 		patrol_path.update();
 		
 	actor.connect("command_list_completed", self, "_command_list_completed");
-	#actor.connect("state_changed", self, "_actor_state_changed");
+	actor.connect("state_changed", self, "_actor_state_changed");
+	
+func _actor_state_changed(p_state):
+	if (p_state == Actor.State.Dying):
+		set_target(null);
+	return;
 	
 func return_to_patrol_route():
 	if (state == State.OnPatrolRoute):
@@ -45,16 +52,18 @@ func _process(delta):
 		return;
 		
 	# pick closest target
-	update_target();
-	if (!target):
+	var desired_target = update_target();
+	if (!desired_target):
 		return_to_patrol_route();
 		return;
-	
+		
 	# move towards?
-	var dist_sqrd = actor.get_global_position().distance_squared_to(target.get_global_position());
+	var dist_sqrd = actor.get_global_position().distance_squared_to(desired_target.get_global_position());
 	if (dist_sqrd > target_radius_squared):
 		return_to_patrol_route();
 		return;
+	
+	set_target(desired_target);
 
 	var actor_pos = actor.get_global_position();
 	var move_to_pos = target.get_global_position()
@@ -64,19 +73,37 @@ func _process(delta):
 	if (len(path_points) <= 0):
 		path_points = [actor_pos, move_to_pos];
 		
-	print(path_points)
+	#print(path_points)
 	actor.set_path_points(path_points, false);
 	state = State.ApproachingTarget;
 	
 func update_target():
 	# is it better to sort enemies by distance incase we a targetting multiple? just make target a targeting list
 	var dist = -1;
+	var desired_target = null;
 	for a in get_tree().get_nodes_in_group("actors"):
 		if is_enemy(a):
 			var dist_to_a = actor.get_global_position().distance_squared_to(a.get_global_position());
 			if (dist == -1 || dist_to_a < dist):
 				dist = dist_to_a;
-				target = a;
+				desired_target = a;
+				
+	return desired_target;
+				
+func set_target(p_new_target):
+	# no change in target
+	if (p_new_target == target):
+		return;
+		
+	var old_target = target;
+	target = p_new_target;
+	
+	if (old_target):
+		old_target.set_targetted(actor, false);
+		
+	if (target):
+		target.set_targetted(actor, true);
+	
 	
 func is_enemy(p_other_actor):
 	if (p_other_actor != actor):

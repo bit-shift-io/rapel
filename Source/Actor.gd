@@ -4,6 +4,7 @@ const CommandList = preload("CommandList.gd");
 
 signal state_changed(state);
 signal command_list_completed();
+signal notify_set_targetted(actor, targetting);
 
 export(bool) var debug = false;
 
@@ -22,6 +23,8 @@ onready var path_follow = $"Path2D/PathFollow2D";
 onready var weapon = BUtil.find_first_child_by_class_name(self, "Weapon");
 
 var health = 20;
+
+var target_of = {}
 
 enum State {
 	Idle,
@@ -174,18 +177,22 @@ func _process_state_attack(delta):
 		# do damage - ideally do at 50% way through anim?
 		# TODO: raycast or get target f
 		var c = command_list.get_first_command();
-		var direction = c.direction;
-		var weapon = get_weapon();
-		var range_min = weapon.range_min;
-		var range_max = weapon.range_max;
-		var current_pos = get_global_position();
-		var col_list = Util.raycast(current_pos + (direction * range_min), current_pos + (direction * range_max));
-		for col in col_list:
-			var a = BUtil.find_parent_by_class_name(col.collider, "Actor");
-			if (a != self):
-				a.damage(weapon);
-				break; # how to handle hitting multiple enemies? a list of actors to hit? for now just hit the first
+		if (c):
+			var direction = c.direction;
+			var weapon = get_weapon();
+			var range_min = weapon.range_min;
+			var range_max = weapon.range_max;
+			var current_pos = get_global_position();
+			var col_list = Util.raycast(current_pos + (direction * range_min), current_pos + (direction * range_max));
+			for col in col_list:
+				var a = BUtil.find_parent_by_class_name(col.collider, "Actor");
+				if (a != self):
+					a.damage(weapon);
+					break; # how to handle hitting multiple enemies? a list of actors to hit? for now just hit the first
+		else:
+			print("Lost attack info!");
 		
+		set_state(State.Idle);
 		execute_next_command();
 		return;
 		
@@ -195,7 +202,7 @@ func _process_state_walk(delta):
 	# reached end?
 	if (!path_follow.has_loop() && path_follow.get_unit_offset() >= 1.0):
 		#clear_path();
-		#set_state(State.Idle);
+		set_state(State.Idle);
 		execute_next_command();
 		return;
 		
@@ -313,5 +320,17 @@ func damage(p_weapon):
 		set_state(State.Flinch);
 		
 	return;
+	
+# let this actor know we have the focus of the enemy
+func set_targetted(p_actor, p_targetting):
+	if (p_targetting):
+		target_of[p_actor] = p_actor;
+	else:
+		target_of.erase(p_actor);
+		
+	emit_signal("notify_set_targetted", p_actor, p_targetting);
+	
+func is_targetted():
+	return (target_of.size() > 0);
 	
 		

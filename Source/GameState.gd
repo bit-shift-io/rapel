@@ -5,7 +5,7 @@ enum Phase {
 	Plan
 }
 
-var phase = Phase.Plan;
+var phase = Phase.Execute;
 
 signal change_phase(p_phase);
 

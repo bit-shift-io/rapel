@@ -19,6 +19,7 @@ func _ready():
 	_change_phase(GameState.get_phase()); # pause anims
 	
 	actor.connect("command_list_completed", self, "_command_list_completed");
+	actor.connect("notify_set_targetted", self, "_notify_set_targetted");
 	
 	# for now, reparent controller to the actor
 	#self.get_parent().remove_child(self);
@@ -27,9 +28,18 @@ func _ready():
 	camera.get_parent().remove_child(camera);
 	actor.call_deferred("add_child", camera);
 	
+func _notify_set_targetted(p_actor, p_targetting):
+	# when targetted, pause
+	# when untargetted, unpause?
+	if (actor.is_targetted()):
+		GameState.set_phase(GameState.Phase.Plan);
+	else:
+		GameState.set_phase(GameState.Phase.Execute);
 	
 func _command_list_completed():
-	GameState.set_phase(GameState.Phase.Plan);
+	if (actor.is_targetted()):
+		GameState.set_phase(GameState.Phase.Plan);
+	return;
 	
 func _change_phase(p_phase):
 	if (p_phase == GameState.Phase.Plan):
@@ -57,6 +67,9 @@ func _unhandled_input(event):
 					command_list.clear();
 					command_list.attack(actor_pos, dir);
 					command_list.update();
+					
+					if (GameState.get_phase() == GameState.Phase.Execute):
+						actor.execute_command(command_list.get_first_command());
 					return;
 					
 		# no enemy, so must be a move command...
@@ -76,6 +89,9 @@ func _unhandled_input(event):
 		command_list.clear();
 		command_list.walk_along_path(path_points, false);
 		command_list.update();
+		
+		if (GameState.get_phase() == GameState.Phase.Execute):
+			actor.execute_command(command_list.get_first_command());
 		
 		#actor.set_path_points(path_points, false);
 		
