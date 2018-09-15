@@ -285,6 +285,8 @@ func set_state(p_state):
 		command_list.clear(); # no more commands for you dear sir
 	elif (state == State.Dead):
 		character.stop_all(); # leave on last keyframe of dying
+		set_collision_layer(0); # disable physics - probably better to not have the physics shape as the root, but follow the physics shape?
+		set_collision_mask(0);
 	elif (state == State.Flinch):
 		character.set("playback/loop", 1);
 		character.set("playback/curr_animation", "Flinch");

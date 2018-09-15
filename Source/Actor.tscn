@@ -29,7 +29,7 @@ collision_mask = 1
 collision/safe_margin = 0.08
 motion/sync_to_physics = false
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Script" ]
+_sections_unfolded = [ "Collision", "Script", "collision" ]
 debug = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
