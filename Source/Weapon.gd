@@ -1,4 +1,4 @@
-extends Node2D
+extends Spatial
 
 export(float) var damage = 10;
 

@@ -1,11 +1,11 @@
-extends Node2D
+extends Spatial
 
 const Actor = preload("Actor.gd");
 
 export(int) var target_radius = 100;
 
 onready var actor = $"Actor";
-onready var patrol_path = $"Path2D";
+onready var patrol_path = $"Path";
 
 var target;
 onready var target_radius_squared = target_radius * target_radius;
@@ -23,10 +23,10 @@ func _ready():
 	actor.show_path(false); # only for players
 	
 	# deparent the path from this actor and reparent to scene root so the follow 2D node can be used
-	if (patrol_path):
+	#if (patrol_path):
 		#patrol_path.get_parent().remove_child(patrol_path);
 		#get_tree().get_root().call_deferred("add_child", patrol_path);
-		patrol_path.update();
+		#patrol_path.update();
 		
 	actor.connect("command_list_completed", self, "_command_list_completed");
 	actor.connect("state_changed", self, "_actor_state_changed");
@@ -67,15 +67,16 @@ func _process(delta):
 
 	var actor_pos = actor.get_global_position();
 	var move_to_pos = target.get_global_position()
-	var path_points = actor.navigation.get_simple_path(actor_pos, move_to_pos);
-	
+	var path_points = []; #actor.navigation.get_simple_path(actor_pos, move_to_pos);
+
 	# if no path (path finding is broken atm) just go in a straight line for now
 	if (len(path_points) <= 0):
 		path_points = [actor_pos, move_to_pos];
-		
+
 	#print(path_points)
 	actor.set_path_points(path_points, false);
 	state = State.ApproachingTarget;
+	return;
 	
 func update_target():
 	# is it better to sort enemies by distance incase we a targetting multiple? just make target a targeting list

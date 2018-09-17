@@ -1,6 +1,6 @@
 # A list of commands an actor can receive
 # to be executed one after the other
-extends Node2D
+extends Spatial
 
 enum CommandType {
 	Attack,
@@ -31,7 +31,7 @@ func get_end_position():
 	return null;
 	
 func walk_along_path(p_path_points, p_loop):
-	var curve : Curve2D = Curve2D.new()
+	var curve : Curve3D = Curve3D.new()
 	for p in p_path_points:
 		curve.add_point(p)
 		
@@ -54,7 +54,7 @@ func _draw():
 	if (draw == false):
 		return;
 
-	set_global_position(Vector2(0, 0));
+	#set_global_position(Vector3(0, 0, 0));
 	for c in list:
 		if (c.command == CommandType.Walk):
 			draw_curve(c.curve);
@@ -62,19 +62,24 @@ func _draw():
 			draw_attack(c.position, c.direction);
 			
 func draw_curve(p_curve):
-	for i in range(p_curve.get_point_count()):
-		if (i > 0):
-			draw_line(p_curve.get_point_position(i - 1), p_curve.get_point_position(i), Color(255, 255, 255, 50), 2.0);
-			
-		draw_circle(p_curve.get_point_position(i), 5, Color(255, 255, 255, 50));
+#	for i in range(p_curve.get_point_count()):
+#		if (i > 0):
+#			draw_line(p_curve.get_point_position(i - 1), p_curve.get_point_position(i), Color(255, 255, 255, 50), 2.0);
+#
+#		draw_circle(p_curve.get_point_position(i), 5, Color(255, 255, 255, 50));
+	return;
 		
 			
 func draw_attack(p_position, p_direction):
-	draw_line(p_position, p_position + p_direction, Color(255, 0, 0, 1));
+#	draw_line(p_position, p_position + p_direction, Color(255, 0, 0, 1));
+	return;
 	
 func get_first_command():
+	if (list.size() <= 0):
+		return null;
+		
 	return list.front();
 	
 func pop_front_command():
 	list.pop_front();
-	update();
+	#update();

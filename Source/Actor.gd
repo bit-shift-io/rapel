@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends KinematicBody
 
 const CommandList = preload("CommandList.gd");
 
@@ -12,15 +12,15 @@ var speed = 2 # pixel/second
 
 var movement_tolerance = 2.0 # how close do we need to be to mouse pos before we stop moving
 
-onready var character = $"Character"
-onready var character2 = $"Viewport/Char3D"
-onready var character_sprite = $"Viewport_Sprite"
+#onready var character = $"Character"
+onready var character2 = $"Char3D"
+#onready var character_sprite = $"Viewport_Sprite"
 
-onready var map_floor = $"../../Navigation2D/floor";
-onready var navigation = $"../../Navigation2D";
+#onready var map_floor = $"../../Navigation2D/floor";
+#onready var navigation = $"../../Navigation2D";
 
-onready var path = $"Path2D";
-onready var path_follow = $"Path2D/PathFollow2D";
+onready var path = $"Path";
+onready var path_follow = $"Path/PathFollow";
 
 onready var weapon = BUtil.find_first_child_by_class_name(self, "Weapon");
 
@@ -41,20 +41,19 @@ var state;
 
 onready var command_list = $"CommandList";
 
-onready var move_target = get_global_position();
+onready var move_target = get_global_transform().origin;
 
 func _ready():
 	add_to_group("actors");
 	
-	get_tree().set_debug_navigation_hint(true);
-	
-	map_floor.update_dirty_quadrants();
+	#get_tree().set_debug_navigation_hint(true);
+	#map_floor.update_dirty_quadrants();
 	
 	set_process_input(false)
 	set_physics_process(true)
 	
-	character.set("playback/curr_animation", "Idle");
-	character.play_from_time(0.0);
+	#character.set("playback/curr_animation", "Idle");
+	#character.play_from_time(0.0);
 	
 	set_state(State.Idle);
 	
@@ -70,18 +69,21 @@ func _ready():
 	
 	# reparent weapon to L_Hand
 	# https://github.com/sanja-sa/gddragonbones/issues/23
-	#var l_hand = BUtil.find_child(character, "L_Hand");
-	#weapon.get_parent().remove_child(weapon);
-	#l_hand.call_deferred("add_child", weapon);
+	var l_hand = BUtil.find_child(character2, "Armature_Hand_L");
+	if (l_hand):
+		weapon.get_parent().remove_child(weapon);
+		l_hand.call_deferred("add_child", weapon);
 	
 	
 func _change_phase(p_phase):
 	if (p_phase == GameState.Phase.Plan):
 		#character.stop_all();
-		character.set("playback/speed", 0.0);
+		#character.set("playback/speed", 0.0);
+		pass;
 	else:
 		#character.play(true);
-		character.set("playback/speed", 1.0); # TODO: restore speed of when pasued
+		#character.set("playback/speed", 1.0); # TODO: restore speed of when pasued
+		pass
 			
 		# start following the commandlist
 		if (command_list.get_first_command()):
@@ -111,8 +113,8 @@ func execute_command(c):
 		path_follow.set_offset(0)
 		set_state(State.Walk)
 	elif (c.command == CommandList.CommandType.Attack):
-		character.flipX = (c.direction.x < 0);
-		character_sprite.set_flip_h(c.direction.x < 0);
+		#character.flipX = (c.direction.x < 0);
+		#character_sprite.set_flip_h(c.direction.x < 0);
 		set_state(State.Attack)
 		return;
 		
@@ -122,13 +124,13 @@ func execute_next_command():
 	command_list.pop_front_command();
 	execute_command(command_list.get_first_command());
 	
-func _draw():
-	if (!debug):
-		return;
-		
-	return;
-	draw_circle(move_target, 5, Color(255, 0, 0, 1));
-	draw_line(move_target, get_global_position(), Color(255, 0, 0, 1));
+#func _draw():
+#	if (!debug):
+#		return;
+#
+#	return;
+#	draw_circle(move_target, 5, Color(255, 0, 0, 1));
+#	draw_line(move_target, get_global_position(), Color(255, 0, 0, 1));
 	
 func _physics_process(delta):
 	if (GameState.get_phase() == GameState.Phase.Plan):
@@ -150,33 +152,21 @@ func _physics_process(delta):
 	return;
 
 func _process_state_flinch(delta):
-	# reached end of anim
-	print("tell:" + str(character.tell()));
-	print("get_progress:" + str(character.get_progress()));
-	
-	if (character.tell() >= 1.0):
+	if (!is_anim_playing()):
 		set_state(State.Idle);
 		return;
 		
 	return;
 	
 func _process_state_dying(delta):
-	# reached end of anim
-	print("tell:" + str(character.tell()));
-	print("get_progress:" + str(character.get_progress()));
-	
-	if (character.tell() >= 1.0):
+	if (!is_anim_playing()):
 		set_state(State.Dead);
 		return;
 		
 	return;
 	
 func _process_state_attack(delta):
-	# reached end of anim
-	print("tell:" + str(character.tell()));
-	print("get_progress:" + str(character.get_progress()));
-	
-	if (character.tell() >= 1.0):
+	if (!is_anim_playing()):
 		# do damage - ideally do at 50% way through anim?
 		# TODO: raycast or get target f
 		var c = command_list.get_first_command();
@@ -194,60 +184,67 @@ func _process_state_attack(delta):
 					break; # how to handle hitting multiple enemies? a list of actors to hit? for now just hit the first
 		else:
 			print("Lost attack info!");
-		
+
 		set_state(State.Idle);
 		execute_next_command();
 		return;
-		
+
 	return;
 	
 func _process_state_walk(delta):
 	# reached end?
-	if (!path_follow.has_loop() && path_follow.get_unit_offset() >= 1.0):
-		#clear_path();
-		set_state(State.Idle);
-		execute_next_command();
-		return;
-		
+	# TODO: this bit is broken!
+#	if (!path_follow.has_loop() && path_follow.get_unit_offset() >= 1.0):
+#		#clear_path();
+#		set_state(State.Idle);
+#		execute_next_command();
+#		return;
+
 	var current_pos = get_global_position();
 	path_follow.set_offset(path_follow.get_offset() + speed);
-	var new_pos = path_follow.get_global_position();
-	
+	var new_pos = path_follow.get_global_transform().origin;
+
 	if (debug):
 		print("path offset:" + str(path_follow.get_offset()) + " len: " + str(path.get_curve().get_baked_length()));
-	
+
 	var delta_pos = new_pos - current_pos;
-	
+
 	move_target = new_pos;
-	
+
 	# boil movement down to a direction
 	var dir = delta_pos.normalized();
-	
+
 	if (debug):
 		print("delta_pos:" + str(delta_pos));
-	
+
 	# make character face the direction we are moving
-	character.flipX = (delta_pos.x < 0);
-	character_sprite.set_flip_h(delta_pos.x < 0);
-	
+	#character.flipX = (delta_pos.x < 0);
+	#character_sprite.set_flip_h(delta_pos.x < 0);
+	var s = -1.0 if delta_pos.x < 0 else 1.0;
+	#character2.scale = Vector3(s, 1, 1);
+	#character2.scale_object_local(Vector3(s, 1, 1));
+
 	#delta_pos = Vector2(1, 0) * 10;
-	
+
 	# move the physics/actor
 	#set_global_position(new_pos);
+
+	var result = move_and_slide(dir * speed); # move_and_slide?
 	
-	var result = move_and_collide(dir * speed); # move_and_slide?
-	
+	var pos_after_move = get_global_position();
+
 	if (debug):
 		print("result:" + str(result));
 
 	#update();
+	return;
 		
 func clear_path():
-	path.set_curve(Curve2D.new())
+	path.set_curve(Curve3D.new())
 	path.update();
 			
 func set_path_points(p_path_points, p_loop):
-	var curve : Curve2D = Curve2D.new()
+	var curve : Curve3D = Curve3D.new()
 	for p in p_path_points:
 		curve.add_point(p)
 	
@@ -272,17 +269,15 @@ func set_state(p_state):
 	
 	if (state == State.Idle):
 		play_anim("Idle", true);
-		character.play_from_time(0.0);
 	elif (state == State.Walk):
 		play_anim("Run", true);
-		character.play_from_time(0.0);
 	elif (state == State.Attack):
 		play_anim("Attack_Sword", false);
 	elif (state == State.Dying):
 		play_anim("Dying", false);
 		command_list.clear(); # no more commands for you dear sir
 	elif (state == State.Dead):
-		character.stop_all(); # leave on last keyframe of dying
+		#character.stop_all(); # leave on last keyframe of dying
 		set_collision_layer(0); # disable physics - probably better to not have the physics shape as the root, but follow the physics shape?
 		set_collision_mask(0);
 	elif (state == State.Flinch):
@@ -332,12 +327,18 @@ func is_targetted():
 	return (target_of.size() > 0);
 	
 func play_anim(p_name, p_loop):
-	character.set("playback/loop", -1 if p_loop else 1);
-	character.set("playback/curr_animation", p_name);
-	character.play_from_time(0.0);
+	#character.set("playback/loop", -1 if p_loop else 1);
+	#character.set("playback/curr_animation", p_name);
+	#character.play_from_time(0.0);
 		
 	var anim_name = p_name + "_Armature";
 	character2.get_node("AnimationPlayer").get_animation(anim_name).set_loop(p_loop);
 	character2.get_node("AnimationPlayer").play(anim_name);
+	
+func is_anim_playing():
+	return character2.get_node("AnimationPlayer").is_playing();
+	
+func get_global_position():
+	return get_global_transform().origin;
 	
 		

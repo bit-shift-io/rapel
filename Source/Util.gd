@@ -40,9 +40,10 @@ func find_parent_by_class_inheritance(node, className):
 		
 	return null;
 
+
 # use this if you want to cast through multiple objects
 func raycast(from, to):
-	var world = get_tree().get_root().get_world_2d();
+	var world = get_tree().get_root().get_world();
 	if !world: # || !ClassDB.is_parent_class(world.get_class(), "Spatial"):
 		return []; # in the menu or something
 		
@@ -54,7 +55,7 @@ func raycast(from, to):
 	var exclusions = []
 	var validCol = true
 	while (validCol):
-		var col = space_state.intersect_ray(from, to, exclusions, 0xFFFFFFFF, true, true);
+		var col = space_state.intersect_ray(from, to, exclusions)
 		if (!col.empty()):
 			results.append(col)
 			exclusions.append(col["rid"])

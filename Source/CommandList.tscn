@@ -2,7 +2,7 @@
 
 [ext_resource path="res://CommandList.gd" type="Script" id=1]
 
-[node name="CommandList" type="Node2D"]
+[node name="CommandList" type="Spatial"]
 script = ExtResource( 1 )
 _sections_unfolded = [ "Script", "Visibility" ]
 draw = true

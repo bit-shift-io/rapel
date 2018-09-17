@@ -2,7 +2,7 @@
 
 [ext_resource path="res://AIController.gd" type="Script" id=1]
 
-[node name="AIController" type="Node2D"]
+[node name="AIController" type="Spatial"]
 script = ExtResource( 1 )
 _sections_unfolded = [ "Script" ]
 target_radius = 100

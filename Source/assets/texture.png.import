@@ -2,13 +2,13 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/sword_b.png-5f05df371c2527a477e3ee96a67254e7.s3tc.stex"
-path.etc2="res://.import/sword_b.png-5f05df371c2527a477e3ee96a67254e7.etc2.stex"
+path.s3tc="res://.import/texture.png-37d4f2cf5563ef4871bbbd6f14421d67.s3tc.stex"
+path.etc2="res://.import/texture.png-37d4f2cf5563ef4871bbbd6f14421d67.etc2.stex"
 
 [deps]
 
-source_file="res://sword_b.png"
-dest_files=[ "res://.import/sword_b.png-5f05df371c2527a477e3ee96a67254e7.s3tc.stex", "res://.import/sword_b.png-5f05df371c2527a477e3ee96a67254e7.etc2.stex" ]
+source_file="res://assets/texture.png"
+dest_files=[ "res://.import/texture.png-37d4f2cf5563ef4871bbbd6f14421d67.s3tc.stex", "res://.import/texture.png-37d4f2cf5563ef4871bbbd6f14421d67.etc2.stex" ]
 
 [params]
 
