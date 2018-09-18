@@ -19,7 +19,7 @@
 #ifndef BPLUGIN_MANAGER_H
 #define BPLUGIN_MANAGER_H
 
-#include "reference.h"
+#include "core/reference.h"
 
 /**
 	@author Fabian Mathews <supagu@gmail.com>

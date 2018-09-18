@@ -33,7 +33,7 @@
 #include "scene/3d/mesh_instance.h"
 #include "scene/3d/physics_body.h"
 #include "scene/resources/texture.h"
-#include "core_string_names.h"
+#include "core/core_string_names.h"
 #include <assert.h>
 
 BTerrain *BTerrain::singleton=NULL;

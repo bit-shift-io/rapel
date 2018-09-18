@@ -20,8 +20,8 @@
 #define BTERRAIN_H
 
 #include "scene/3d/spatial.h"
-#include "self_list.h"
-#include "func_ref.h"
+#include "core/self_list.h"
+#include "core/func_ref.h"
 #include "itch_io.h"
 #include "bnormal_map.h"
 #include "bheight_map.h"

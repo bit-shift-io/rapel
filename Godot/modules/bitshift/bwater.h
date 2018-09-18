@@ -20,8 +20,8 @@
 #define BWATER_H
 
 #include "scene/3d/spatial.h"
-#include "self_list.h"
-#include "func_ref.h"
+#include "core/self_list.h"
+#include "core/func_ref.h"
 
 class CanvasItemMaterial;
 class BMeshGenTool;

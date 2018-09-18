@@ -20,7 +20,7 @@
 #include "barc_line_curve.h"
 #include "butil.h"
 #include "bterrain.h"
-#include "core_string_names.h"
+#include "core/core_string_names.h"
 #include <assert.h>
 
 

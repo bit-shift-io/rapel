@@ -22,7 +22,7 @@
 #include "scene/resources/mesh.h"
 #include "scene/3d/mesh_instance.h"
 #include "scene/3d/physics_body.h"
-#include "core_string_names.h"
+#include "core/core_string_names.h"
 #include <assert.h>
 	
 Ref<BArcLineCurve> BCurveMeshNode::get_local_curve() {

@@ -20,8 +20,8 @@
 #include "bdialogs.h"
 #include "butil.h"
 #include "scene/gui/line_edit.h"
-#include "print_string.h"
-#include "translation.h"
+#include "core/print_string.h"
+#include "core/translation.h"
 #include "scene/main/viewport.h"
 
 #ifdef TOOLS_ENABLED

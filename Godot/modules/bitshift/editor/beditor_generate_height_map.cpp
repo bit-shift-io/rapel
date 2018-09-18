@@ -65,7 +65,9 @@ HeightMapSettings::HeightMapSettings() {
 
 void BEditorGenerateHeightMap::popup() {
     popup_centered(Size2(500, 500) * EDSCALE);
+#if 0 // TODO: FIXME
     property_editor->edit(height_map_settings);
+#endif
 }
 
 void BEditorGenerateHeightMap::ok_pressed() {
@@ -108,12 +110,13 @@ void BEditorGenerateHeightMap::_bind_methods() {
 }
 
 BEditorGenerateHeightMap::BEditorGenerateHeightMap() {
+#if 0 // TODO: FIXME
     height_map_settings = memnew(HeightMapSettings);
 
     VBoxContainer *vbc = memnew(VBoxContainer);
     add_child(vbc);
 
-    property_editor = memnew(PropertyEditor);
+    property_editor = memnew(CustomPropertyEditor);
     vbc->add_child(property_editor);
 
     property_editor->set_name(TTR("Options"));
@@ -135,6 +138,7 @@ BEditorGenerateHeightMap::BEditorGenerateHeightMap() {
     results_label->set_v_size_flags(SIZE_EXPAND_FILL);
     vbc->add_child(results_label);
     results->connect("confirmed", this, "_results_confirm");
+#endif
 }
 
 BEditorGenerateHeightMap::~BEditorGenerateHeightMap() {

@@ -31,7 +31,7 @@
 #include "scene/3d/physics_body.h"
 #include "scene/3d/collision_shape.h"
 #include "scene/resources/texture.h"
-#include "core_string_names.h"
+#include "core/core_string_names.h"
 #include <assert.h>
 
 AABB BTerrainGenerator::compute_aabb(float size, float height) {

@@ -22,7 +22,7 @@
 #include "../butil.h"
 #include "../bnormal_map.h"
 #include "../bheight_map.h"
-#include "core_string_names.h"
+#include "core/core_string_names.h"
 
 #include "editor/editor_node.h"
 #include "editor/property_editor.h"
@@ -79,7 +79,9 @@ NormalMapSettings::NormalMapSettings() {
 
 void BEditorGenerateNormalMap::popup() {
     popup_centered(Size2(500, 500) * EDSCALE);
+#if 0 // TODO: FIXME
     property_editor->edit(normal_map_settings);
+#endif
 }
 
 void BEditorGenerateNormalMap::ok_pressed() {
@@ -136,12 +138,13 @@ void BEditorGenerateNormalMap::_bind_methods() {
 }
 
 BEditorGenerateNormalMap::BEditorGenerateNormalMap() {
+#if 0 // TODO: FIXME
     normal_map_settings = memnew(NormalMapSettings);
 
     VBoxContainer *vbc = memnew(VBoxContainer);
     add_child(vbc);
 
-    property_editor = memnew(PropertyEditor);
+    property_editor = memnew(CustomPropertyEditor);
     vbc->add_child(property_editor);
 
     property_editor->set_name(TTR("Options"));
@@ -163,6 +166,7 @@ BEditorGenerateNormalMap::BEditorGenerateNormalMap() {
     results_label->set_v_size_flags(SIZE_EXPAND_FILL);
     vbc->add_child(results_label);
     results->connect("confirmed", this, "_results_confirm");
+#endif
 }
 
 BEditorGenerateNormalMap::~BEditorGenerateNormalMap() {

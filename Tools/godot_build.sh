@@ -37,7 +37,7 @@ if [ ! -d $ENGINE_DIR ]; then
     sudo pacman -S --noconfirm mingw-w64-gcc
     
     # one for android
-    sudo yay -S --noconfirm ncurses5-compat-libs
+    yay -S --noconfirm ncurses5-compat-libs
     
     git clone https://github.com/godotengine/godot.git $ENGINE_DIR  
     
@@ -93,7 +93,6 @@ fi
 # link project modules into the build
 ln -s $PROJ_DIR/Godot/modules/bitshift $ENGINE_DIR/modules
 ln -s $PROJ_DIR/Godot/modules/matrix $ENGINE_DIR/modules
-ln -s $PROJ_DIR/Godot/modules/gddragonbones $ENGINE_DIR/modules
 
 # copy other changes
 cp -r $PROJ_DIR/Godot/drivers $ENGINE_DIR

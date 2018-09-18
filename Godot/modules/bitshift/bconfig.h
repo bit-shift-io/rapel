@@ -19,7 +19,7 @@
 #ifndef BCONFIG_H
 #define BCONFIG_H
 
-#include "reference.h"
+#include "core/reference.h"
 #include "core/io/config_file.h"
 
 /**

@@ -19,9 +19,9 @@
 #ifndef ITCH_IO_H
 #define ITCH_IO_H
 
-#include "reference.h"
-#include "self_list.h"
-#include "func_ref.h"
+#include "core/reference.h"
+#include "core/self_list.h"
+#include "core/func_ref.h"
 
 /**
 	@author Fabian Mathews <supagu@gmail.com>

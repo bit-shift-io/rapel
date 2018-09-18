@@ -19,7 +19,7 @@
 #ifndef BMATRIX_MASTER_SERVER_H
 #define BMATRIX_MASTER_SERVER_H
 
-#include "reference.h"
+#include "core/reference.h"
 #include "modules/matrix/matrix.h"
 #include "scene/main/timer.h"
 #include "bhttp_client.h"

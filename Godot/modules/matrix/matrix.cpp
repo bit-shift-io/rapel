@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-#include "io/json.h"
+#include "core/io/json.h"
 
 HTTPClient::ResponseCode MatrixClient::request(HTTPClient &client, String endpoint, String body, HTTPClient::Method method, String &response_body) {
   client.poll();

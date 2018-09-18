@@ -19,7 +19,7 @@
 #ifndef BLOG_H
 #define BLOG_H
 
-#include "reference.h"
+#include "core/reference.h"
 #include "scene/main/node.h"
 #include "core/print_string.h"
 

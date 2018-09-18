@@ -22,7 +22,7 @@
 
 #include "scene/gui/dialogs.h"
 
-class PropertyEditor;
+class CustomPropertyEditor;
 class NormalMapSettings;
 class RichTextLabel;
 
@@ -32,7 +32,7 @@ class BEditorGenerateNormalMap : public ConfirmationDialog {
     ConfirmationDialog *results;
     RichTextLabel *results_label;
 
-    PropertyEditor *property_editor;
+    CustomPropertyEditor *property_editor;
     NormalMapSettings *normal_map_settings;
 
     virtual void ok_pressed();

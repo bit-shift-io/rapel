@@ -19,7 +19,7 @@
 #ifndef BRSS_H
 #define BRSS_H
 
-#include "reference.h"
+#include "core/reference.h"
 
 class Thread;
 class XMLParser;

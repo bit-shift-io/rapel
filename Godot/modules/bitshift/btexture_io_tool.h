@@ -19,10 +19,10 @@
 #ifndef BTEXTURE_IO_TOOL_H
 #define BTEXTURE_IO_TOOL_H
 
-#include "reference.h"
+#include "core/reference.h"
 #include "core/image.h"
 #include "butil.h"
-#include "math/vector3.h"
+#include "core/vector.h"
 #include "scene/resources/texture.h"
 #include "thirdparty/pvrtccompressor/ColorRgba.h"
 #include <assert.h>

@@ -19,7 +19,7 @@
 #ifndef BTHEME_H
 #define BTHEME_H
 
-#include "reference.h"
+#include "core/reference.h"
 #include "scene/resources/theme.h"
 
 /**

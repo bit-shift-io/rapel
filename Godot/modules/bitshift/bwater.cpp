@@ -30,7 +30,7 @@
 #include "scene/3d/spatial.h"
 #include "scene/3d/mesh_instance.h"
 #include "scene/resources/texture.h"
-#include "core_string_names.h"
+#include "core/core_string_names.h"
 #include <assert.h>
 
 BWater *BWater::singleton=NULL;

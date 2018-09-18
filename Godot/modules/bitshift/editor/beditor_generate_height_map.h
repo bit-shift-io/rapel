@@ -22,7 +22,7 @@
 
 #include "scene/gui/dialogs.h"
 
-class PropertyEditor;
+class CustomPropertyEditor;
 class HeightMapSettings;
 class RichTextLabel;
 
@@ -32,7 +32,7 @@ class BEditorGenerateHeightMap : public ConfirmationDialog {
     ConfirmationDialog *results;
     RichTextLabel *results_label;
 
-    PropertyEditor *property_editor;
+    CustomPropertyEditor *property_editor;
     HeightMapSettings *height_map_settings;
 
     virtual void ok_pressed();

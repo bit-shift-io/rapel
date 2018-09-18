@@ -19,7 +19,7 @@
 #ifndef BINTERNET_H
 #define BINTERNET_H
 
-#include "reference.h"
+#include "core/reference.h"
 
 class Thread;
 

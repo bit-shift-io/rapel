@@ -1,6 +1,6 @@
 #include "matrixroom.h"
 
-#include "io/json.h"
+#include "core/io/json.h"
 
 void MatrixRoom::_put_event(Dictionary event) {
   if (!event_ids.has(event["event_id"])) {
