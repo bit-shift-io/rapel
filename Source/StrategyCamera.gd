@@ -6,9 +6,11 @@
 # https://github.com/bit-shift-io/trains-and-things/blob/master/LICENSE.md
 #
 
-extends Camera
+extends Spatial
 
 export(float) var height_from_terrain = 50.0; # dont allow terrain any closer to terrain than this
+
+onready var camera = $"Camera";
 
 # zoom settings
 var zoom_prev = 0.0; 
@@ -100,7 +102,7 @@ func zoom_out():
 #	#	set_follow_node(null);
 
 func _process(delta):
-	if (!is_current()):
+	if (!camera.is_current()):
 		return;
 		
 	# should this just be a is_active ?
@@ -133,8 +135,8 @@ func start_mouse_grab_pan():
 	# get the grab point by raycasting the terrain
 	# this then becomes the grab point we always want under the mouse
 	var screen_mouse_pos = get_viewport().get_mouse_position()
-	var world_from = project_ray_origin(screen_mouse_pos)
-	var world_to = world_from + project_ray_normal(screen_mouse_pos) * 10000
+	var world_from = camera.project_ray_origin(screen_mouse_pos)
+	var world_to = world_from + camera.project_ray_normal(screen_mouse_pos) * 10000
 		
 	var col = BUtil.get_terrain().raycast(world_from, world_to);
 	if (!col.empty()):
@@ -157,10 +159,10 @@ func process_mouse_grab_pan(delta):
 	
 	#var screen_target_pos = unproject_position(pan_mouse_grab_raycast_world_position);
 	var screen_mouse_pos = get_viewport().get_mouse_position();
-	var world_from = project_ray_origin(screen_mouse_pos)
+	var world_from = camera.project_ray_origin(screen_mouse_pos)
 	
 	var ground_plane = Plane(Vector3(0, 1, 0), 0);
-	var mouse_ground_intersect_point = ground_plane.intersects_ray(world_from, project_ray_normal(screen_mouse_pos));
+	var mouse_ground_intersect_point = ground_plane.intersects_ray(world_from, camera.project_ray_normal(screen_mouse_pos));
 	
 	var grab_dir = pan_mouse_grab_raycast_world_position - world_from;
 	var grab_position_ground_intersect_point = ground_plane.intersects_ray(world_from, grab_dir);
@@ -179,7 +181,7 @@ func process_mouse_zoom(delta):
 	# zoom in zooms into the mouse position
 	if (zoom_delta > 0.0):
 		var screen_mouse_pos = get_viewport().get_mouse_position();
-		var world_mouse_dir = project_ray_normal(screen_mouse_pos);
+		var world_mouse_dir = camera.project_ray_normal(screen_mouse_pos);
 		transform.origin += world_mouse_dir * zoom_delta * zoom_step * delta;
 		
 	# else, if we are zooming out, we zoom from the centre of the camera
@@ -324,3 +326,8 @@ func compute_camera_movement_to_look_at(position):
 	var offset = position - intersectPt;
 	return offset;
 	
+func project_ray_origin(p_screen_point):
+	return camera.project_ray_origin(p_screen_point);
+	
+func project_ray_normal(p_screen_point):
+	return camera.project_ray_normal(p_screen_point);

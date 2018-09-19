@@ -1,7 +1,7 @@
 extends Spatial
 
 onready var actor = $"Actor";
-onready var camera = $"Camera";
+onready var camera = $"Target";
 
 onready var play_pause_button = $"CanvasLayer/PlayPauseButton";
 
