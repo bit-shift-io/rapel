@@ -13,7 +13,7 @@ var speed = 2 # pixel/second
 var movement_tolerance = 2.0 # how close do we need to be to mouse pos before we stop moving
 
 #onready var character = $"Character"
-onready var character2 = $"Char3D"
+onready var character2 = $"Spatial/Char3D"
 #onready var character_sprite = $"Viewport_Sprite"
 
 #onready var map_floor = $"../../Navigation2D/floor";
@@ -68,8 +68,15 @@ func _ready():
 	get_tree().get_root().call_deferred("add_child", command_list);
 	
 	# reparent weapon to L_Hand
-	# https://github.com/sanja-sa/gddragonbones/issues/23
-	var l_hand = BUtil.find_child(character2, "Armature_Hand_L");
+	# should be using BoneAttachments here.... I think we will need to do an inherited scene from Stip
+	var l_hand = BUtil.find_child(character2, "Hand_L");
+#	var arm_skeleton = BUtil.find_child(character2, "Forearm_Lpng").get_parent(); #BUtil.find_children_by_class_name(character2, "Skeleton");
+#	var bone_idx = arm_skeleton.find_bone("Armature_Hand_L");
+#	arm_skeleton.bind_child_node_to_bone(bone_idx, weapon);
+#	weapon.set_transform(arm_skeleton.get_bone_global_pose(bone_idx));
+	
+#	var bone = arm_skeleton.find_bone("Armature_Hand_L");
+#	var l_hand = BUtil.find_child(character2, "Armature_Hand_L");
 	if (l_hand):
 		weapon.get_parent().remove_child(weapon);
 		l_hand.call_deferred("add_child", weapon);
@@ -327,13 +334,10 @@ func is_targetted():
 	return (target_of.size() > 0);
 	
 func play_anim(p_name, p_loop):
-	#character.set("playback/loop", -1 if p_loop else 1);
-	#character.set("playback/curr_animation", p_name);
-	#character.play_from_time(0.0);
-		
-	var anim_name = p_name + "_Armature";
-	character2.get_node("AnimationPlayer").get_animation(anim_name).set_loop(p_loop);
-	character2.get_node("AnimationPlayer").play(anim_name);
+	#var anim_name = p_name + "_Armature";
+	#character2.get_node("AnimationPlayer").get_animation(anim_name).set_loop(p_loop);
+	#character2.get_node("AnimationPlayer").play(anim_name);
+	return;
 	
 func is_anim_playing():
 	return character2.get_node("AnimationPlayer").is_playing();

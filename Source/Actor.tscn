@@ -1,17 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Actor.gd" type="Script" id=1]
 [ext_resource path="res://CommandList.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Actors/Stip.glb" type="PackedScene" id=3]
+[ext_resource path="res://FaceCameraSpatial.gd" type="Script" id=3]
+[ext_resource path="res://Actors/Stip.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CylinderShape" id=1]
 
 margin = 0.04
 radius = 0.5
-height = 1.0
+height = 1.8
 
 [node name="Actor" type="KinematicBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -21,7 +22,7 @@ move_lock_y = false
 move_lock_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Script", "Transform", "collision" ]
+_sections_unfolded = [ "Script", "Transform", "collision" ]
 debug = false
 
 [node name="Path" type="Path" parent="."]
@@ -46,7 +47,11 @@ shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform", "shape" ]
 
-[node name="Char3D" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0 )
+script = ExtResource( 3 )
+_sections_unfolded = [ "Script", "Transform" ]
+
+[node name="Char3D" parent="Spatial" instance=ExtResource( 4 )]
 _sections_unfolded = [ "Transform" ]
 
