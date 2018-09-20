@@ -4,6 +4,8 @@ Build
 .directory
 butler
 *.blend1
+*.bin
+*.material
 _build
 *.pyc
 *.o

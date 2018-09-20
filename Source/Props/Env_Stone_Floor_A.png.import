@@ -2,13 +2,13 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Floor_Stone_Blue_A.png-4102d8c0049906bc7cd741fba65b41e5.s3tc.stex"
-path.etc2="res://.import/Floor_Stone_Blue_A.png-4102d8c0049906bc7cd741fba65b41e5.etc2.stex"
+path.s3tc="res://.import/Env_Stone_Floor_A.png-05a212ed17b926c26381d7d367dd51a3.s3tc.stex"
+path.etc2="res://.import/Env_Stone_Floor_A.png-05a212ed17b926c26381d7d367dd51a3.etc2.stex"
 
 [deps]
 
-source_file="res://Props/Floor_Stone_Blue_A.png"
-dest_files=[ "res://.import/Floor_Stone_Blue_A.png-4102d8c0049906bc7cd741fba65b41e5.s3tc.stex", "res://.import/Floor_Stone_Blue_A.png-4102d8c0049906bc7cd741fba65b41e5.etc2.stex" ]
+source_file="res://Props/Env_Stone_Floor_A.png"
+dest_files=[ "res://.import/Env_Stone_Floor_A.png-05a212ed17b926c26381d7d367dd51a3.s3tc.stex", "res://.import/Env_Stone_Floor_A.png-05a212ed17b926c26381d7d367dd51a3.etc2.stex" ]
 
 [params]
 

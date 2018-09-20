@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/GridMap_A.glb-727b690db37f2b82f64f62f4e6b7ef55.scn"
+path="res://.import/Tiles_Dungeon_A.glb-ddd22808055d391ad7c1d4473e5dd0fc.scn"
 
 [deps]
 
-source_file="res://Props/GridMap_A.glb"
-dest_files=[ "res://.import/GridMap_A.glb-727b690db37f2b82f64f62f4e6b7ef55.scn" ]
+source_file="res://Props/Tiles_Dungeon_A.glb"
+dest_files=[ "res://.import/Tiles_Dungeon_A.glb-ddd22808055d391ad7c1d4473e5dd0fc.scn" ]
 
 [params]
 
