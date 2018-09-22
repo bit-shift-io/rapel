@@ -33,4 +33,11 @@ directory and make it into a zip. This can then be loaded into blender.
 
 In blender you will need to check "Enable experimental glTF export settings" possibly to get this working.
 
+Blender Collada plugin
+--------------------
+Obtained fomr https://github.com/godotengine/collada-exporter
+similar to steps for GLTF plugin
+
+This plugin adds support for multiple animation export from blender which we need for characters
+
 
