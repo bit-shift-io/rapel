@@ -2,12 +2,17 @@
 # at the moment this is locked around the Y (up) axis
 extends Spatial
 
+export(bool) var enabled = true;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if (!enabled):
+		return;
+		
 	var camera = get_viewport().get_camera();
 	var cxform = camera.get_camera_transform();
 	

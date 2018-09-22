@@ -334,9 +334,9 @@ func is_targetted():
 	return (target_of.size() > 0);
 	
 func play_anim(p_name, p_loop):
-	#var anim_name = p_name + "_Armature";
-	#character2.get_node("AnimationPlayer").get_animation(anim_name).set_loop(p_loop);
-	#character2.get_node("AnimationPlayer").play(anim_name);
+	var anim_name = p_name + "_Armature";
+	character2.get_node("AnimationPlayer").get_animation(anim_name).set_loop(p_loop);
+	character2.get_node("AnimationPlayer").play(anim_name);
 	return;
 	
 func is_anim_playing():

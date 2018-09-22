@@ -51,6 +51,7 @@ _sections_unfolded = [ "Transform", "shape" ]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0 )
 script = ExtResource( 3 )
 _sections_unfolded = [ "Script", "Transform" ]
+enabled = true
 
 [node name="Char3D" parent="Spatial" instance=ExtResource( 4 )]
 _sections_unfolded = [ "Transform" ]

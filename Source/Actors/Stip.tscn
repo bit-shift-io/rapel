@@ -4,7 +4,11 @@
 
 [node name="Scene Root" instance=ExtResource( 1 )]
 
-[node name="Hand_L" type="BoneAttachment" parent="stip/Armature" index="20"]
-transform = Transform( 0.992248, 5.8442e-12, -0.106076, 0.106074, -9.75946e-15, 0.994352, 5.79343e-12, -1, -6.24796e-13, 0.569128, -0.183367, 3.32702e-12 )
+[node name="Hand_R" type="BoneAttachment" parent="Armature/Skeleton" index="20"]
+transform = Transform( 0.940179, -3.98085e-08, -0.340686, 0.340685, -1.44249e-08, 0.940177, -4.23413e-08, -1, 1.24107e-13, -1.40676, -0.378174, -2.27989e-13 )
+bone_name = "Hand_R"
+
+[node name="Hand_L" type="BoneAttachment" parent="Armature/Skeleton" index="21"]
+transform = Transform( -0.653895, 1.58201e-05, -0.75381, 0.755538, 3.04484e-05, -0.655095, 1.2615e-05, -1, -3.19301e-05, 1.44027, 2.10157, 4.42326e-05 )
 bone_name = "Hand_L"
 
