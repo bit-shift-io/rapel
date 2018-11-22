@@ -1,3 +1,4 @@
  
 -edit tools to reference Rapel, not Trains & Things
 -clean up Source and port code from Trains & Things
+-checkout godot RPG demos: https://godotengine.org/article/open-arpg-and-jrpg-demos-gdquest
