@@ -35,7 +35,7 @@ void BBoundaryMap::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_boundary_map","texture"),&BBoundaryMap::set_boundary_map);
     ClassDB::bind_method(D_METHOD("get_boundary_map"),&BBoundaryMap::get_boundary_map);
 
-    ADD_PROPERTYNZ( PropertyInfo(Variant::OBJECT,"boundary_map/boundary_map",PROPERTY_HINT_RESOURCE_TYPE, "Texture"), "set_boundary_map", "get_boundary_map");
+    ADD_PROPERTY( PropertyInfo(Variant::OBJECT,"boundary_map/boundary_map",PROPERTY_HINT_RESOURCE_TYPE, "Texture"), "set_boundary_map", "get_boundary_map");
 
     ClassDB::bind_method(D_METHOD("is_in_bounds"),&BBoundaryMap::is_in_bounds);
     ClassDB::bind_method(D_METHOD("is_out_of_bounds"),&BBoundaryMap::is_out_of_bounds);

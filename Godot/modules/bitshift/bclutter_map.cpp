@@ -231,7 +231,7 @@ void BClutterMap::_bind_methods() {
     
     ClassDB::bind_method(D_METHOD("set_clutter_map","texture"),&BClutterMap::set_clutter_map);
     ClassDB::bind_method(D_METHOD("get_clutter_map"),&BClutterMap::get_clutter_map);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::OBJECT,"clutter_map/clutter_map",PROPERTY_HINT_RESOURCE_TYPE, "Texture"), "set_clutter_map", "get_clutter_map");
+    ADD_PROPERTY( PropertyInfo(Variant::OBJECT,"clutter_map/clutter_map",PROPERTY_HINT_RESOURCE_TYPE, "Texture"), "set_clutter_map", "get_clutter_map");
 	
 	ClassDB::bind_method(D_METHOD("set_prop_group_size", "size"), &BClutterMap::set_prop_group_size);
 	ClassDB::bind_method(D_METHOD("get_prop_group_count"), &BClutterMap::get_prop_group_count);

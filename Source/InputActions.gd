@@ -57,23 +57,23 @@ class Action:
 		return true;
 		
 	func input(event):
-		if (handled_mode == HM_ALL || handled_mode == HM_HANDLED):
+		if (handled_mode == HandledMode.HM_ALL || handled_mode == HandledMode.HM_HANDLED):
 			_process_input(event);
 		return;
 		
 	func _process_input(event):
 		if (event.is_action_pressed(name)):
-			if (set_state(STATE_DOWN)):
+			if (set_state(State.STATE_DOWN)):
 				emit_signal("is_pressed");
 			
 		if (event.is_action_released(name)):
-			if (set_state(STATE_UP)):
+			if (set_state(State.STATE_UP)):
 				emit_signal("is_released");
 			
 		return;
 		
 	func unhandled_input(event):
-		if (handled_mode == HM_ALL || handled_mode == HM_UNHANDLED):
+		if (handled_mode == HandledMode.HM_ALL || handled_mode == HandledMode.HM_UNHANDLED):
 			_process_input(event);
 		return;
 		
@@ -82,16 +82,16 @@ class Action:
 		return;
 		
 	func is_down():
-		return (state == STATE_DOWN);
+		return (state == State.STATE_DOWN);
 		
 	func is_up():
-		return (state == STATE_UP);
+		return (state == State.STATE_UP);
 		
 	func was_pressed():
-		return state == STATE_DOWN && prev_state == STATE_UP;
+		return state == State.STATE_DOWN && prev_state == State.STATE_UP;
 		
 	func was_released():
-		return state == STATE_UP && prev_state == STATE_DOWN;
+		return state == State.STATE_UP && prev_state == State.STATE_DOWN;
 		
 		
 # end class Action
@@ -131,14 +131,14 @@ func _input(event):
 			
 	return;
 	
-func add_action(action_name, handled_mode = HM_ALL):
+func add_action(action_name, handled_mode = HandledMode.HM_ALL):
 	var action = Action.new();
 	action.name = action_name;
 	action.handled_mode = handled_mode;
 	actions[action_name] = action;
 	return action;
 	
-func add_actions(p_actions, handled_mode = HM_ALL):
+func add_actions(p_actions, handled_mode = HandledMode.HM_ALL):
 	var results = [];
 	for action_name in p_actions:
 		results.push_back(add_action(action_name, handled_mode));

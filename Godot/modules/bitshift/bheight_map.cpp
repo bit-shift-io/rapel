@@ -116,7 +116,7 @@ void BHeightMap::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_height_map","texture"),&BHeightMap::set_height_map);
     ClassDB::bind_method(D_METHOD("get_height_map"),&BHeightMap::get_height_map);
 
-    ADD_PROPERTYNZ( PropertyInfo(Variant::OBJECT,"height_map/height_map",PROPERTY_HINT_RESOURCE_TYPE, "Texture"), "set_height_map", "get_height_map");
+    ADD_PROPERTY( PropertyInfo(Variant::OBJECT,"height_map/height_map",PROPERTY_HINT_RESOURCE_TYPE, "Texture"), "set_height_map", "get_height_map");
 
 }
 

@@ -42,7 +42,7 @@ void BArcLineCurveNode::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_curve"), &BArcLineCurveNode::get_curve);
 	ClassDB::bind_method(D_METHOD("set_curve"), &BArcLineCurveNode::set_curve);
 	
-	ADD_PROPERTYNZ(PropertyInfo(Variant::OBJECT, "curve", PROPERTY_HINT_NONE, ""), "set_curve", "get_curve");
+    ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "curve", PROPERTY_HINT_NONE, ""), "set_curve", "get_curve");
 }
 
 BArcLineCurveNode::BArcLineCurveNode() {

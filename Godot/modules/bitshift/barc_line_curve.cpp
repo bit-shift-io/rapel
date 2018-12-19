@@ -1499,7 +1499,7 @@ void BArcLineCurve::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_radius"), &BArcLineCurve::get_radius);
     ClassDB::bind_method(D_METHOD("set_radius"), &BArcLineCurve::set_radius);
 
-    ADD_PROPERTYNZ(PropertyInfo(Variant::OBJECT, "radius", PROPERTY_HINT_NONE, "BArcLineCurve", PROPERTY_USAGE_NOEDITOR), "set_radius", "get_radius");
+    ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "radius", PROPERTY_HINT_NONE, "BArcLineCurve", PROPERTY_USAGE_NOEDITOR), "set_radius", "get_radius");
 	
 	ClassDB::bind_method(D_METHOD("pack"), &BArcLineCurve::pack);
 	ClassDB::bind_method(D_METHOD("unpack"), &BArcLineCurve::unpack);

@@ -72,16 +72,16 @@ func _ready():
 	#Log.debug("start origin: " + String(transform.origin));
 
 	setup_keyboard_pan();
-	input_actions.add_actions(["move_forward", "move_backward", "move_left", "move_right"], input_actions.HM_UNHANDLED);
+	input_actions.add_actions(["move_forward", "move_backward", "move_left", "move_right"], input_actions.HandledMode.HM_UNHANDLED);
 	#input_actions.add_actions(["zoom_in", "zoom_out", "pan"], input_actions.HM_HANDLED);
-	var action = input_actions.add_action("pan", input_actions.HM_HANDLED);
+	var action = input_actions.add_action("pan", input_actions.HandledMode.HM_HANDLED);
 	action.connect("is_pressed", self, "start_mouse_grab_pan");
 	action.connect("is_released", self, "end_mouse_grab_pan");
 	
-	action = input_actions.add_action("zoom_in", input_actions.HM_HANDLED);
+	action = input_actions.add_action("zoom_in", input_actions.HandledMode.HM_HANDLED);
 	action.connect("is_pressed", self, "zoom_in");
 	
-	action = input_actions.add_action("zoom_out", input_actions.HM_HANDLED);
+	action = input_actions.add_action("zoom_out", input_actions.HandledMode.HM_HANDLED);
 	action.connect("is_pressed", self, "zoom_out");
 
 func zoom_in():

@@ -554,7 +554,7 @@ float BTerrain::get_height() const {
 void BTerrain::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_regenerate"),&BTerrain::set_regenerate);
     ClassDB::bind_method(D_METHOD("get_regenerate"),&BTerrain::get_regenerate);
-     ADD_PROPERTYNZ( PropertyInfo(Variant::BOOL,"terrain/regenerate"), "set_regenerate", "get_regenerate");
+     ADD_PROPERTY( PropertyInfo(Variant::BOOL,"terrain/regenerate"), "set_regenerate", "get_regenerate");
 
     ClassDB::bind_method(D_METHOD("_terrain_material_changed"),&BTerrain::_terrain_material_changed);
     ClassDB::bind_method(D_METHOD("_update"),&BTerrain::_update);
@@ -564,27 +564,27 @@ void BTerrain::_bind_methods() {
 
     ClassDB::bind_method(D_METHOD("set_size"),&BTerrain::set_size);
     ClassDB::bind_method(D_METHOD("get_size"),&BTerrain::get_size);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::REAL,"terrain/size"), "set_size", "get_size");
+    ADD_PROPERTY( PropertyInfo(Variant::REAL,"terrain/size"), "set_size", "get_size");
 
     ClassDB::bind_method(D_METHOD("set_height"),&BTerrain::set_height);
     ClassDB::bind_method(D_METHOD("get_height"),&BTerrain::get_height);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::REAL,"terrain/height"), "set_height", "get_height");
+    ADD_PROPERTY( PropertyInfo(Variant::REAL,"terrain/height"), "set_height", "get_height");
 
     ClassDB::bind_method(D_METHOD("set_height_map_path"),&BTerrain::set_height_map_path);
     ClassDB::bind_method(D_METHOD("get_height_map_path"),&BTerrain::get_height_map_path);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::STRING,"terrain/height_map_path", PROPERTY_HINT_FILE, "*.tif,*.png"), "set_height_map_path", "get_height_map_path");
+    ADD_PROPERTY( PropertyInfo(Variant::STRING,"terrain/height_map_path", PROPERTY_HINT_FILE, "*.tif,*.png"), "set_height_map_path", "get_height_map_path");
 
     ClassDB::bind_method(D_METHOD("set_normal_map_path"),&BTerrain::set_normal_map_path);
     ClassDB::bind_method(D_METHOD("get_normal_map_path"),&BTerrain::get_normal_map_path);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::STRING,"terrain/normal_map_path", PROPERTY_HINT_FILE, "*.png"), "set_normal_map_path", "get_normal_map_path");
+    ADD_PROPERTY( PropertyInfo(Variant::STRING,"terrain/normal_map_path", PROPERTY_HINT_FILE, "*.png"), "set_normal_map_path", "get_normal_map_path");
 
     ClassDB::bind_method(D_METHOD("set_terrain_material","material"),&BTerrain::set_terrain_material);
     ClassDB::bind_method(D_METHOD("get_terrain_material"),&BTerrain::get_terrain_material);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::OBJECT,"terrain/terrain_material",PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_terrain_material", "get_terrain_material");
+    ADD_PROPERTY( PropertyInfo(Variant::OBJECT,"terrain/terrain_material",PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_terrain_material", "get_terrain_material");
     
     ClassDB::bind_method(D_METHOD("set_skirt_material","material"),&BTerrain::set_skirt_material);
     ClassDB::bind_method(D_METHOD("get_skirt_material"),&BTerrain::get_skirt_material);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::OBJECT,"terrain/skirt_material",PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_skirt_material", "get_skirt_material");
+    ADD_PROPERTY( PropertyInfo(Variant::OBJECT,"terrain/skirt_material",PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_skirt_material", "get_skirt_material");
 	
 	ClassDB::bind_method(D_METHOD("move_transform_to_ground"), &BTerrain::move_transform_to_ground);
 	ClassDB::bind_method(D_METHOD("move_vector_to_ground"), &BTerrain::move_vector_to_ground);

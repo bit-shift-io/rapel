@@ -8,18 +8,15 @@
 
 [sub_resource type="Curve3D" id=1]
 
-bake_interval = 0.2
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -1.89966, 0.538016, 0.203489, 0, 0, 0, 0, 0, 0, -1.90616, 0.386223, -3.75324, 0, 0, 0, 0, 0, 0, 0.132895, 0.47103, -3.70236, 0, 0, 0, 0, 0, 0, 0.156908, 0.537251, -0.105797 ),
 "tilts": PoolRealArray( 0, 0, 0, 0 )
 }
-up_vector_enabled = true
 
 [node name="Map" type="Spatial"]
 
 [node name="PlayerController" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98614, 0, -1.04854 )
-_sections_unfolded = [ "Script", "Transform" ]
 
 [node name="Actor" parent="PlayerController" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.899329 )
@@ -32,7 +29,6 @@ weight = 20.0
 
 [node name="AIController" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18676, 0, 4.81639 )
-_sections_unfolded = [ "Script", "Transform" ]
 
 [node name="Actor" parent="AIController" instance=ExtResource( 2 )]
 
@@ -46,46 +42,27 @@ weight = 20.0
 curve = SubResource( 1 )
 
 [node name="Navigation" type="Navigation" parent="."]
-up_vector = Vector3( 0, 1, 0 )
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
-navmesh = null
-enabled = true
 
 [node name="Mesh" type="Spatial" parent="."]
 
 [node name="Floor" type="GridMap" parent="Mesh"]
 mesh_library = ExtResource( 5 )
-cell_size = Vector3( 2, 2, 2 )
-cell_octant_size = 8
-cell_center_x = true
 cell_center_y = false
-cell_center_z = true
-cell_scale = 1.0
-collision_layer = 1
-collision_mask = 1
 data = {
 "cells": PoolIntArray( 0, 0, 1441793, 1, 0, 1441793, 2, 0, 1441793, 3, 0, 1441793, 4, 0, 1441793, 5, 0, 1, 6, 0, 1, 0, 1, 1441793, 1, 1, 1441793, 2, 1, 1441793, 3, 1, 1441793, 4, 1, 1048577, 5, 1, 1, 6, 1, 1, 65532, 1, 1441793, 65533, 1, 1441793, 65534, 1, 1441793, 65535, 1, 1441793, 0, 2, 1441793, 1, 2, 1441793, 2, 2, 1441793, 3, 2, 1441793, 4, 2, 1048577, 5, 2, 1, 6, 2, 1, 65532, 2, 1441793, 65533, 2, 1441793, 65534, 2, 1441793, 65535, 2, 1441793, 0, 3, 1441793, 1, 3, 1441793, 2, 3, 1441793, 3, 3, 1441793, 4, 3, 1048577, 5, 3, 1, 6, 3, 1, 65533, 3, 1441793, 65534, 3, 1441793, 65535, 3, 1441793, 0, 4, 1, 1, 4, 1, 0, 5, 1, 1, 5, 1, 2, 5, 1, 3, 5, 1, 4, 5, 1, 5, 5, 1, 6, 5, 1, 65535, 5, 1, 0, 6, 1, 1, 6, 1, 2, 6, 1, 3, 6, 1, 65535, 6, 1, 0, 7, 1, 1, 7, 1, 2, 7, 1, 65535, 7, 1, 0, 65532, 1441793, 1, 65532, 1441793, 2, 65532, 1441793, 3, 65532, 1441793, 0, 65533, 1441793, 1, 65533, 1441793, 2, 65533, 1441793, 3, 65533, 1441793, 4, 65533, 1441793, 0, 65534, 1441793, 1, 65534, 1441793, 2, 65534, 1441793, 3, 65534, 1441793, 0, 65535, 1441793, 1, 65535, 1441793, 2, 65535, 1441793, 3, 65535, 1441793, 4, 65535, 1441793, 5, 65535, 1, 6, 65535, 1 )
 }
-_sections_unfolded = [ "Cell", "mesh_library" ]
 __meta__ = {
 "_editor_clip_": 0
 }
 
 [node name="Wall" type="GridMap" parent="Mesh"]
 mesh_library = ExtResource( 5 )
-cell_size = Vector3( 2, 2, 2 )
-cell_octant_size = 8
-cell_center_x = true
 cell_center_y = false
-cell_center_z = true
-cell_scale = 1.0
-collision_layer = 1
-collision_mask = 1
 data = {
 "cells": PoolIntArray( 3, 0, 1441792, 4, 0, 1048576, 3, 1, 1441792, 4, 1, 1048576, 3, 2, 1441792, 4, 2, 1048576, 3, 65532, 1441794, 3, 65533, 1441792, 4, 65533, 1048576, 3, 65534, 1441792, 4, 65534, 1048576, 3, 65535, 1441792, 4, 65535, 2, 5, 65535, 0, 6, 65535, 0 )
 }
-_sections_unfolded = [ "Cell" ]
 __meta__ = {
 "_editor_clip_": 0
 }

@@ -356,38 +356,38 @@ Ref<Mesh> BWater::create_skirt(int resolution, const Transform& uvXform) {
 void BWater::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_regenerate"),&BWater::set_regenerate);
     ClassDB::bind_method(D_METHOD("get_regenerate"),&BWater::get_regenerate);
-     ADD_PROPERTYNZ( PropertyInfo(Variant::BOOL,"terrain/regenerate"), "set_regenerate", "get_regenerate");
+     ADD_PROPERTY( PropertyInfo(Variant::BOOL,"terrain/regenerate"), "set_regenerate", "get_regenerate");
 
     ClassDB::bind_method(D_METHOD("_material_changed"),&BWater::_material_changed);
     ClassDB::bind_method(D_METHOD("_update"),&BWater::_update);
 
     ClassDB::bind_method(D_METHOD("set_size"),&BWater::set_size);
     ClassDB::bind_method(D_METHOD("get_size"),&BWater::get_size);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::REAL,"water/size"), "set_size", "get_size");
+    ADD_PROPERTY( PropertyInfo(Variant::REAL,"water/size"), "set_size", "get_size");
     
     ClassDB::bind_method(D_METHOD("set_chunks"),&BWater::set_chunks);
     ClassDB::bind_method(D_METHOD("get_chunks"),&BWater::get_chunks);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::INT,"water/chunks"), "set_chunks", "get_chunks");
+    ADD_PROPERTY( PropertyInfo(Variant::INT,"water/chunks"), "set_chunks", "get_chunks");
     
     ClassDB::bind_method(D_METHOD("set_resolution"),&BWater::set_resolution);
     ClassDB::bind_method(D_METHOD("get_resolution"),&BWater::get_resolution);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::INT,"water/resolution"), "set_resolution", "get_resolution");
+    ADD_PROPERTY( PropertyInfo(Variant::INT,"water/resolution"), "set_resolution", "get_resolution");
     
     ClassDB::bind_method(D_METHOD("set_surface_height"),&BWater::set_surface_height);
     ClassDB::bind_method(D_METHOD("get_surface_height"),&BWater::get_surface_height);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::REAL,"water/surface_height"), "set_surface_height", "get_surface_height");
+    ADD_PROPERTY( PropertyInfo(Variant::REAL,"water/surface_height"), "set_surface_height", "get_surface_height");
 
     ClassDB::bind_method(D_METHOD("set_depth"),&BWater::set_depth);
     ClassDB::bind_method(D_METHOD("get_depth"),&BWater::get_depth);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::REAL,"water/depth"), "set_depth", "get_depth");
+    ADD_PROPERTY( PropertyInfo(Variant::REAL,"water/depth"), "set_depth", "get_depth");
     
     ClassDB::bind_method(D_METHOD("set_surface_material","material"),&BWater::set_surface_material);
     ClassDB::bind_method(D_METHOD("get_surface_material"),&BWater::get_surface_material);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::OBJECT,"water/surface_material",PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_surface_material", "get_surface_material");
+    ADD_PROPERTY( PropertyInfo(Variant::OBJECT,"water/surface_material",PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_surface_material", "get_surface_material");
     
     ClassDB::bind_method(D_METHOD("set_skirt_material","material"),&BWater::set_skirt_material);
     ClassDB::bind_method(D_METHOD("get_skirt_material"),&BWater::get_skirt_material);
-    ADD_PROPERTYNZ( PropertyInfo(Variant::OBJECT,"water/skirt_material",PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_skirt_material", "get_skirt_material");
+    ADD_PROPERTY( PropertyInfo(Variant::OBJECT,"water/skirt_material",PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_skirt_material", "get_skirt_material");
 }
 
 BWater::BWater() {

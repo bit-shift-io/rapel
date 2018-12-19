@@ -193,14 +193,14 @@ void BCurveMeshNode::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_local_curve"), &BCurveMeshNode::get_local_curve);
 	ClassDB::bind_method(D_METHOD("set_local_curve"), &BCurveMeshNode::set_local_curve);
 	
-	ADD_PROPERTYNZ(PropertyInfo(Variant::OBJECT, "local_curve", PROPERTY_HINT_NONE, "BArcLineCurve", PROPERTY_USAGE_NOEDITOR), "set_local_curve", "get_local_curve");
+    ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "local_curve", PROPERTY_HINT_NONE, "BArcLineCurve", PROPERTY_USAGE_NOEDITOR), "set_local_curve", "get_local_curve");
 	
 	ClassDB::bind_method(D_METHOD("get_curve_mesh"), &BCurveMeshNode::get_curve_mesh);
 	ClassDB::bind_method(D_METHOD("set_curve_mesh"), &BCurveMeshNode::set_curve_mesh);
         
     ClassDB::bind_method(D_METHOD("get_mesh_instance"), &BCurveMeshNode::get_mesh_instance);
 	
-	ADD_PROPERTYNZ(PropertyInfo(Variant::OBJECT, "curve_mesh", PROPERTY_HINT_NONE, "BCurveMesh", PROPERTY_USAGE_NOEDITOR), "set_curve_mesh", "get_curve_mesh");
+    ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "curve_mesh", PROPERTY_HINT_NONE, "BCurveMesh", PROPERTY_USAGE_NOEDITOR), "set_curve_mesh", "get_curve_mesh");
 	
 	ClassDB::bind_method(D_METHOD("get_mesh_generation_type"), &BCurveMeshNode::get_mesh_generation_type);
 	ClassDB::bind_method(D_METHOD("set_mesh_generation_type"), &BCurveMeshNode::set_mesh_generation_type);
