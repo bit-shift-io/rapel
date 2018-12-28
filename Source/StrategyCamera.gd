@@ -13,9 +13,14 @@ export(float) var height_from_terrain = 50.0; # dont allow terrain any closer to
 onready var camera = $"Camera";
 
 # zoom settings
-var zoom_prev = 0.0; 
-export(float) var zoom = 0.0;
-var zoom_step = 200.0;
+var zoom_prev = 0.0; # previous zoom value
+export(float) var zoom = 0.0; # current zoom value
+export(float) var zoom_step = 2.0; # how much to zoom by - works differently for ortho
+var zoom_tween = null;
+var zoom_target = 0.0;
+export(float) var zoom_tween_time = 0.2; # how long to make the transition
+export(float) var zoom_min = -5.0;
+export(float) var zoom_max = 20.0;
 
 # keyboard pan settings
 var pan_keyboard_speed = 20.0;
@@ -69,6 +74,11 @@ func _ready():
 	#set_process_unhandled_input(true);
 	set_process(true);
 	
+	
+	zoom_tween = Tween.new();
+	zoom_tween.playback_process_mode = Tween.TWEEN_PROCESS_PHYSICS;
+	add_child(zoom_tween);
+	
 	#Log.debug("start origin: " + String(transform.origin));
 
 	setup_keyboard_pan();
@@ -108,8 +118,6 @@ func _process(delta):
 	# should this just be a is_active ?
 	if (Console.is_console_open()):
 		return;
-		
-	process_mouse_zoom(delta);
 	
 	process_follow_node();
 	process_keyboard_pan(delta);
@@ -171,24 +179,6 @@ func process_mouse_grab_pan(delta):
 	transform.origin += camera_movement;
 	
 
-func process_mouse_zoom(delta):
-	if (controller.mouse_over_ui):
-		return;
-		
-	var zoom_delta = zoom - zoom_prev;	
-	#Log.debug("zoom_delta: " + String(zoom_delta));
-	
-	# zoom in zooms into the mouse position
-	if (zoom_delta > 0.0):
-		var screen_mouse_pos = get_viewport().get_mouse_position();
-		var world_mouse_dir = camera.project_ray_normal(screen_mouse_pos);
-		transform.origin += world_mouse_dir * zoom_delta * zoom_step * delta;
-		
-	# else, if we are zooming out, we zoom from the centre of the camera
-	elif (zoom_delta < 0.0):
-		transform.origin -= transform.basis[2] * zoom_delta * zoom_step * delta;
-
-	zoom_prev = zoom;
 
 func setup_keyboard_pan():
 	# this set the keyframes to the current position of the camera
@@ -261,23 +251,39 @@ func pan_to_position(pos):
 	pan_animation_player.play(pan_animation_player.find_animation(anim));
 	return;
 	
-func animate_zoom(z):
+func _tween_zoom(z):
+	Log.debug("_tween_zoom: " + String(z));
+	
+	if (controller.mouse_over_ui):
+		return;
+		
+	zoom = z;
+	var zoom_delta = zoom - zoom_prev;
+	#Log.debug("zoom_delta: " + String(zoom_delta));
+		
+	if (is_orthogonal()):
+		camera.size += zoom_delta;
+	else: # perspective
+		# zoom in zooms into the mouse position
+		if (zoom_delta > 0.0):
+			var screen_mouse_pos = get_viewport().get_mouse_position();
+			var world_mouse_dir = camera.project_ray_normal(screen_mouse_pos);
+			transform.origin += world_mouse_dir * zoom_delta * zoom_step;# * delta;
+			
+		# else, if we are zooming out, we zoom from the centre of the camera
+		elif (zoom_delta < 0.0):
+			transform.origin -= transform.basis[2] * zoom_delta * zoom_step; # * delta;
+
 	zoom_prev = zoom;
 	
-	# stop the animation player, get the value at the end of the track
-	# and then modify the value from there
-	# set the start of the track to the current value
-	var anim_player = get_node("ZoomAnim");	
-	anim_player.stop();
+	return;
 	
-	var anim_name = anim_player.get_animation_list()[0];
-	var anim = anim_player.get_animation(anim_name);
-	var zoom_end_value = anim.track_get_key_value(0, 1);	
-	#zoom_end_value = clamp(zoom_end_value, zoom_min, zoom_max);
-	
-	anim.track_set_key_value(0,0,zoom);
-	anim.track_set_key_value(0,1,zoom_end_value + z);
-	anim_player.play(anim_name);
+func animate_zoom(z):
+	#Log.debug("Zooming from: " + String(zoom) + " to " + String(zoom + z));
+	zoom_target += (z * zoom_step);
+	zoom_target = clamp(zoom_target, zoom_min, zoom_max);
+	zoom_tween.interpolate_method(self, "_tween_zoom", zoom, zoom_target, zoom_tween_time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0);
+	zoom_tween.start();
 		
 func terrain_col_check():
 	if (BUtil.get_terrain()):
@@ -331,3 +337,6 @@ func project_ray_origin(p_screen_point):
 	
 func project_ray_normal(p_screen_point):
 	return camera.project_ray_normal(p_screen_point);
+	
+func is_orthogonal():
+	return camera.projection == Camera.PROJECTION_ORTHOGONAL;

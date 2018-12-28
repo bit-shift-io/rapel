@@ -4,11 +4,14 @@
 
 [node name="Scene Root" instance=ExtResource( 1 )]
 
+[node name="Skeleton" parent="Armature" index="0"]
+editor/display_folded = true
+
 [node name="Hand_R" type="BoneAttachment" parent="Armature/Skeleton" index="20"]
-transform = Transform( 0.940179, -3.98085e-08, -0.340686, 0.340685, -1.44249e-08, 0.940177, -4.23413e-08, -1, 1.24107e-13, -1.40676, -0.378174, -2.27989e-13 )
+transform = Transform( 0.940177, 4.92092e-08, -0.340686, 0.340686, 1.78316e-08, 0.940177, 5.23403e-08, -1, 5.9426e-15, -0.422029, -0.113452, 8.13363e-16 )
 bone_name = "Hand_R"
 
 [node name="Hand_L" type="BoneAttachment" parent="Armature/Skeleton" index="21"]
-transform = Transform( -0.653895, 1.58201e-05, -0.75381, 0.755538, 3.04484e-05, -0.655095, 1.2615e-05, -1, -3.19301e-05, 1.44027, 2.10157, 4.42326e-05 )
+transform = Transform( 0.996079, 3.8585e-08, -0.106078, 0.10608, 4.10601e-09, 0.994362, 3.86762e-08, -1, 9.52058e-16, 0.170738, -0.0550102, 3.04762e-15 )
 bone_name = "Hand_L"
 
