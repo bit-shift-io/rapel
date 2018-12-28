@@ -9,17 +9,17 @@
 [sub_resource type="Curve3D" id=1]
 
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -1.89966, 0.538016, 0.203489, 0, 0, 0, 0, 0, 0, -1.90616, 0.386223, -3.75324, 0, 0, 0, 0, 0, 0, 0.132895, 0.47103, -3.70236, 0, 0, 0, 0, 0, 0, 0.156908, 0.537251, -0.105797 ),
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 3.59391, -0.00796509, 8.42835, 0, 0, 0, 0, 0, 0, 7.74011, 0.036341, 8.86539, 0, 0, 0, 0, 0, 0, 5.09986, 0.489438, 2.68238, 0, 0, 0, 0, 0, 0, 0.156908, 0.537251, -0.105797 ),
 "tilts": PoolRealArray( 0, 0, 0, 0 )
 }
 
 [node name="Map" type="Spatial"]
 
 [node name="PlayerController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98614, 0, -1.04854 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98614, 0.968542, -1.04854 )
 
 [node name="Actor" parent="PlayerController" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.899329 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18356, -0.899329 )
 
 [node name="SwordA" parent="PlayerController/Actor" instance=ExtResource( 3 )]
 attack_recover_time = 2.0
@@ -28,9 +28,11 @@ range_max = 30.0
 weight = 20.0
 
 [node name="AIController" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18676, 0, 4.81639 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18676, 0.705311, 4.81639 )
+enabled = false
 
 [node name="Actor" parent="AIController" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.933529, 0 )
 
 [node name="SwordA" parent="AIController/Actor" instance=ExtResource( 3 )]
 attack_recover_time = 2.0

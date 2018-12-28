@@ -2,7 +2,8 @@ extends Spatial
 
 const Actor = preload("Actor.gd");
 
-export(int) var target_radius = 100;
+export(int) var target_radius = 2;
+export(bool) var enabled = true;
 
 onready var actor = $"Actor";
 onready var patrol_path = $"Path";
@@ -18,6 +19,10 @@ enum State {
 var state;
 
 func _ready():
+	if (!enabled):
+		set_process(false);
+		actor.set_enabled(false);
+		
 	add_to_group("controllers");
 	
 	actor.show_path(false); # only for players

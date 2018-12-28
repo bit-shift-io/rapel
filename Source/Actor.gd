@@ -8,9 +8,13 @@ signal notify_set_targetted(actor, targetting);
 
 export(bool) var debug = false;
 
-var speed = 2 # pixel/second
+var speed = 4 # metres/second
+var gravity = -9.8;
 
 var movement_tolerance = 2.0 # how close do we need to be to mouse pos before we stop moving
+
+
+onready var collisionShape = $"CollisionShape";
 
 #onready var character = $"Character"
 onready var character2 = $"Spatial/Char3D"
@@ -25,6 +29,7 @@ onready var path_follow = $"Path/PathFollow";
 onready var weapon = BUtil.find_first_child_by_class_name(self, "Weapon");
 
 var health = 20;
+var enabled = true;
 
 var target_of = {}
 
@@ -80,7 +85,20 @@ func _ready():
 	if (l_hand):
 		weapon.get_parent().remove_child(weapon);
 		l_hand.call_deferred("add_child", weapon);
+		
+	# teleport to ground
+	var t = get_global_transform();
+	t.origin.y = collisionShape.shape.height * 0.5;
+	set_global_transform(t);
 	
+func set_enabled(e):
+	enabled = e;
+	set_physics_process(e);
+	set_process(e);
+	if (e == false):
+		character2.get_node("AnimationPlayer").stop();
+	else:
+		character2.get_node("AnimationPlayer").play();
 	
 func _change_phase(p_phase):
 	if (p_phase == GameState.Phase.Plan):
@@ -201,25 +219,39 @@ func _process_state_attack(delta):
 func _process_state_walk(delta):
 	# reached end?
 	# TODO: this bit is broken!
-#	if (!path_follow.has_loop() && path_follow.get_unit_offset() >= 1.0):
-#		#clear_path();
-#		set_state(State.Idle);
-#		execute_next_command();
-#		return;
+	var loop = path_follow.has_loop();
+	var u_offset = path_follow.get_unit_offset();
+	var curve = path.get_curve();
+	var curve_length = curve.get_baked_length();
+	var offset = path_follow.get_offset();
+	
+	if (!path_follow.has_loop() && path_follow.get_unit_offset() >= 1.0):
+		#clear_path();
+		set_state(State.Idle);
+		execute_next_command();
+		return;
+	
+	var collisionHeight = collisionShape.shape.height;
 
-	var current_pos = get_global_position();
-	path_follow.set_offset(path_follow.get_offset() + speed);
+	var t = get_global_transform();
+	var current_pos = t.origin; #get_global_position();
+	current_pos.y = collisionHeight * 0.5;
+	
+	path_follow.set_offset(path_follow.get_offset() + speed * delta);
 	var new_pos = path_follow.get_global_transform().origin;
+	new_pos.y = collisionHeight * 0.5;
 
 	if (debug):
 		print("path offset:" + str(path_follow.get_offset()) + " len: " + str(path.get_curve().get_baked_length()));
 
 	var delta_pos = new_pos - current_pos;
+	delta_pos.y = 0;
 
-	move_target = new_pos;
+	#move_target = new_pos;
 
 	# boil movement down to a direction
-	var dir = delta_pos.normalized();
+	#delta_pos.y = 0;
+	#var dir = delta_pos.normalized();
 
 	if (debug):
 		print("delta_pos:" + str(delta_pos));
@@ -234,14 +266,22 @@ func _process_state_walk(delta):
 	#delta_pos = Vector2(1, 0) * 10;
 
 	# move the physics/actor
-	#set_global_position(new_pos);
-
-	var result = move_and_slide(dir * speed); # move_and_slide?
+	#var t = get_global_transform();
 	
-	var pos_after_move = get_global_position();
+	t.origin += delta_pos; #new_pos;
+	set_global_transform(t);
+	
+	#var velocity = dir; # * speed * delta;
+	#velocity.y += delta * gravity;
+	#delta_pos.y += delta * gravity;
 
-	if (debug):
-		print("result:" + str(result));
+	var vel = delta_pos * (1.0 / delta);
+	var result = move_and_slide(vel, Vector3(0, 1, 0)); # move_and_slide?
+	
+	var pos_after_move = get_global_transform().origin;
+
+	#if (debug):
+	#	print("result:" + str(result));
 
 	#update();
 	return;

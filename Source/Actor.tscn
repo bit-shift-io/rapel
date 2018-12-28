@@ -7,52 +7,26 @@
 
 [sub_resource type="CylinderShape" id=1]
 
-margin = 0.04
 radius = 0.5
 height = 1.8
 
 [node name="Actor" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
-move_lock_x = false
-move_lock_y = false
-move_lock_z = false
-collision/safe_margin = 0.001
 script = ExtResource( 1 )
-_sections_unfolded = [ "Script", "Transform", "collision" ]
-debug = false
 
 [node name="Path" type="Path" parent="."]
-visible = false
 curve = null
-_sections_unfolded = [ "Script", "Visibility" ]
 
 [node name="PathFollow" type="PathFollow" parent="Path"]
-visible = false
-offset = 0.0
-h_offset = 0.0
-v_offset = 0.0
-rotation_mode = 3
-cubic_interp = true
-loop = true
-_sections_unfolded = [ "Visibility" ]
 
 [node name="CommandList" parent="." instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
-disabled = false
-_sections_unfolded = [ "Transform", "shape" ]
 
 [node name="Spatial" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0 )
 script = ExtResource( 3 )
-_sections_unfolded = [ "Script", "Transform" ]
-enabled = true
 
 [node name="Char3D" parent="Spatial" instance=ExtResource( 4 )]
-_sections_unfolded = [ "Transform" ]
 
