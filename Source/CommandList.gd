@@ -11,6 +11,7 @@ enum CommandType {
 export(bool) var draw = true;
 
 var list = []
+onready var geometry = get_node("ImmediateGeometry");
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,6 +19,7 @@ func _ready():
 	
 func clear():
 	list.clear()
+	geometry.clear();
 	
 # get position of the actor once they have finished executing the commands
 func get_end_position():
@@ -40,6 +42,7 @@ func walk_along_path(p_path_points, p_loop):
 		"curve": curve,
 		"loop": p_loop
 	});
+	draw();
 	return;
 	
 func attack(p_position, p_direction):
@@ -48,12 +51,15 @@ func attack(p_position, p_direction):
 		"position": p_position,
 		"direction": p_direction
 	});
+	draw();
 	return;
 
-func _draw():
+func draw():
 	if (draw == false):
 		return;
 
+	geometry.begin(Mesh.PRIMITIVE_TRIANGLES);
+	
 	#set_global_position(Vector3(0, 0, 0));
 	for c in list:
 		if (c.command == CommandType.Walk):
@@ -61,17 +67,37 @@ func _draw():
 		elif (c.command == CommandType.Attack):
 			draw_attack(c.position, c.direction);
 			
+	geometry.end();
+			
+func draw_line(start, end, color, width):
+	var dir = (end - start).normalized();
+	var right = Vector3(0, 1, 0).cross(dir); #dir.cross(Vector3(0, 1, 0));
+	var halfWidth = width * 0.5;
+	
+	#start.y += 0.2;
+	#end.y += 0.2;
+	
+	geometry.set_color(color);
+	geometry.add_vertex(start - right * halfWidth);
+	geometry.add_vertex(start + right * halfWidth);
+	geometry.add_vertex(end + right * halfWidth);
+	
+	geometry.add_vertex(start - right * halfWidth);
+	geometry.add_vertex(end + right * halfWidth);
+	geometry.add_vertex(end - right * halfWidth);
+	
 func draw_curve(p_curve):
-#	for i in range(p_curve.get_point_count()):
-#		if (i > 0):
-#			draw_line(p_curve.get_point_position(i - 1), p_curve.get_point_position(i), Color(255, 255, 255, 50), 2.0);
-#
+	for i in range(p_curve.get_point_count()):
+		if (i > 0):
+			draw_line(p_curve.get_point_position(i - 1), p_curve.get_point_position(i), Color(255, 255, 255, 50), 0.2);
+
 #		draw_circle(p_curve.get_point_position(i), 5, Color(255, 255, 255, 50));
 	return;
 		
 			
 func draw_attack(p_position, p_direction):
-#	draw_line(p_position, p_position + p_direction, Color(255, 0, 0, 1));
+	p_direction.y = 0;
+	draw_line(p_position, p_position + p_direction, Color(255, 0, 0, 1), 0.2);
 	return;
 	
 func get_first_command():
