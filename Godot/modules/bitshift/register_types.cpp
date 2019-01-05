@@ -47,6 +47,11 @@
 #endif
 
 #include "bplugin_manager.h"
+#include "image_loader_png.h"
+#include "core/io/image_loader.h"
+
+
+static ImageLoaderPNG *image_loader_png = NULL;
 
 static BConfig* _bconfig = NULL;
 static BMasterServer* _bmaster_server = NULL;
@@ -78,6 +83,12 @@ static Ref<StyleBoxFlat> make_flat_stylebox(Color p_color, float p_margin_left =
 
 void register_bitshift_types() {
     start_allocs = MemoryPool::allocs_used;
+
+    // replace the default PNG image loader with ours, which supports 16-bit
+    ImageFormatLoader* defaultPngLoader = ImageLoader::recognize("png");
+    ImageLoader::remove_image_format_loader(defaultPngLoader);
+    image_loader_png = memnew(ImageLoaderPNG);
+    ImageLoader::add_image_format_loader(image_loader_png);
 
     ClassDB::register_class<BLog>();
     ClassDB::register_class<BSurfaceTool>();
@@ -145,6 +156,8 @@ void unregister_bitshift_types() {
     memdelete(_bmaster_server);
     memdelete(_butil);
     memdelete(_binternet);
+
+    memdelete(image_loader_png);
 
     BTerrainMaterial::finish_shaders();
     BSpatialMaterial::finish_shaders();

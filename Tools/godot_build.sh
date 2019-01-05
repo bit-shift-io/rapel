@@ -102,7 +102,7 @@ cp -r $PROJ_DIR/Godot/servers $ENGINE_DIR
 
 # apply patches
 cd $ENGINE_DIR
-git am < $PROJ_DIR/Godot/patch/0001-16-bit-PNG-support.patch
+#git am < $PROJ_DIR/Godot/patch/0001-16-bit-PNG-support.patch
 
 
 # Build!

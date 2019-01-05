@@ -457,11 +457,11 @@ BUtil::BUtil() {
     //itch.auth();
 
 #ifdef DEMO_BUILD
-    print_line("Trains & Things Demo");
+    print_line("www.bitshift.io - Demo Build");
     call_deferred("_add_demo_timer");
     #pragma message "COMPILING WITH DEMO_BUILD ENABLED"
 #else
-    print_line("Trains & Things");
+    print_line("www.bitshift.io");
 #endif
 }
 
