@@ -98,11 +98,11 @@ func _unhandled_input(event):
 		var actor_pos = actor.get_global_position();
 		var move_to_pos = ground_pos;
 
-		var path_points = []; #actor.navigation.get_simple_path(actor_pos, move_to_pos);
+		var path_points = NavigationMgr.get_simple_path(actor_pos, move_to_pos);
 
 		# if no path (path finding is broken atm) just go in a straight line for now
-		if (len(path_points) <= 0):
-			path_points = [actor_pos, move_to_pos];
+		#if (len(path_points) <= 0):
+		#	path_points = [actor_pos, move_to_pos];
 
 		print(path_points)
 

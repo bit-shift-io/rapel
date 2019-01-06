@@ -63,35 +63,53 @@ func _process(delta):
 		return;
 		
 	# move towards?
-	var dist_sqrd = actor.get_global_position().distance_squared_to(desired_target.get_global_position());
-	if (dist_sqrd > target_radius_squared):
-		return_to_patrol_route();
-		return;
+	#var dist_sqrd = actor.get_global_position().distance_squared_to(desired_target.get_global_position());
+	#if (dist_sqrd > target_radius_squared):
+#		return_to_patrol_route();
+#		return;
 	
 	set_target(desired_target);
 
 	var actor_pos = actor.get_global_position();
 	var move_to_pos = target.get_global_position()
-	var path_points = []; #actor.navigation.get_simple_path(actor_pos, move_to_pos);
+	var path_points = NavigationMgr.get_simple_path(actor_pos, move_to_pos);
 
 	# if no path (path finding is broken atm) just go in a straight line for now
-	if (len(path_points) <= 0):
-		path_points = [actor_pos, move_to_pos];
+	#if (len(path_points) <= 0):
+	#	path_points = [actor_pos, move_to_pos];
 
 	#print(path_points)
 	actor.set_path_points(path_points, false);
 	state = State.ApproachingTarget;
 	return;
 	
+func path_length_squared(path_points, max_dist_squared):
+	var dist_squared = 0;
+	for i in range(1, len(path_points)):
+		var vec = (path_points[i] - path_points[i-1]);
+		dist_squared += vec.length_squared();
+		if (dist_squared > max_dist_squared):
+			return max_dist_squared;
+		
+	return dist_squared;
+		
+	
 func update_target():
 	# is it better to sort enemies by distance incase we a targetting multiple? just make target a targeting list
-	var dist = -1;
+	var dist_squared = target_radius_squared;
 	var desired_target = null;
 	for a in get_tree().get_nodes_in_group("actors"):
 		if is_enemy(a):
-			var dist_to_a = actor.get_global_position().distance_squared_to(a.get_global_position());
-			if (dist == -1 || dist_to_a < dist):
-				dist = dist_to_a;
+			var dist_to_a_squared = actor.get_global_position().distance_squared_to(a.get_global_position());
+			if (dist_to_a_squared < dist_squared):
+				
+				# okay so we are in range, do we have line of sight? - for now we just check the navigation distance
+				var path_points = NavigationMgr.get_simple_path(actor.get_global_position(), a.get_global_position());
+				var real_dist_to_a = path_length_squared(path_points, target_radius_squared);
+				if (real_dist_to_a > dist_squared):
+					continue;
+				
+				dist_squared = dist_to_a_squared;
 				desired_target = a;
 				
 	return desired_target;

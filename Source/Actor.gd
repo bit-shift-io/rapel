@@ -25,6 +25,7 @@ onready var character2 = $"Spatial/Char3D"
 
 onready var path = $"Path";
 onready var path_follow = $"Path/PathFollow";
+onready var dig = $"DetachedImmediateGeometry";
 
 onready var weapon = BUtil.find_first_child_by_class_name(self, "Weapon");
 
@@ -72,6 +73,9 @@ func _ready():
 	command_list.get_parent().remove_child(command_list);
 	get_tree().get_root().call_deferred("add_child", command_list);
 	
+	dig.get_parent().remove_child(dig);
+	get_tree().get_root().call_deferred("add_child", dig);
+	
 	# reparent weapon to L_Hand
 	# should be using BoneAttachments here.... I think we will need to do an inherited scene from Stip
 	var l_hand = BUtil.find_child(character2, "Hand_L");
@@ -82,7 +86,7 @@ func _ready():
 	
 #	var bone = arm_skeleton.find_bone("Armature_Hand_L");
 #	var l_hand = BUtil.find_child(character2, "Armature_Hand_L");
-	if (l_hand):
+	if (l_hand && weapon):
 		weapon.get_parent().remove_child(weapon);
 		l_hand.call_deferred("add_child", weapon);
 		
@@ -297,6 +301,10 @@ func set_path_points(p_path_points, p_loop):
 	
 	path.set_curve(curve)
 	#path.update(); # redraw
+	
+	dig.begin(Mesh.PRIMITIVE_TRIANGLES);
+	dig.draw_curve(curve, Color(128, 0, 0, 50));
+	dig.end();
 	
 	path_follow.set_loop(p_loop);
 	path_follow.set_offset(0)
